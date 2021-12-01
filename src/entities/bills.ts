@@ -9,8 +9,6 @@ import { Firm } from './firm';
 
 @Entity()
 export class Bill extends BaseEntity {
-  @Property()
-  firmId: number;
 
   @Property({
     length: 250,
