@@ -13,8 +13,8 @@ const config: Options = {
     tableName: 'migrations',
     transactional: true,
   },
-  entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.ts'],
+  entities: ['dist/entities/*.js'],
+  entitiesTs: ['src/entities/*.ts'],
   debug: true,
   highlighter: new SqlHighlighter(),
 };
