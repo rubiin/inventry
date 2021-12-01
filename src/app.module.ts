@@ -12,12 +12,7 @@ import { ProductsModule } from './products/products.module';
 @Module({
   imports: [
     UserModule,
-    MikroOrmModule.forRoot({
-      entities: ['./dist/entities'],
-      entitiesTs: ['./src/entities'],
-      dbName: 'test',
-      type: 'mysql',
-    }),
+    MikroOrmModule.forRoot(),
     ExpenseModule,
     SalesModule,
     BillsModule,

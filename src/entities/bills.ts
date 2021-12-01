@@ -1,18 +1,14 @@
 import {
-  BeforeCreate,
-  BeforeUpdate,
   Entity,
   ManyToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { BaseEntity } from './baseEntity';
 import { Firm } from './firm';
 
 @Entity()
-export class Bill {
-  @PrimaryKey()
-  id!: number;
-
+export class Bill extends BaseEntity {
   @Property()
   firmId: number;
 
@@ -23,10 +19,4 @@ export class Bill {
 
   @ManyToOne(() => Firm, { eager: true })
   firm: Firm;
-
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }

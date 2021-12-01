@@ -1,21 +1,15 @@
 import {
-  BeforeCreate,
-  BeforeUpdate,
   Collection,
   Entity,
   OneToMany,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Exclude } from 'class-transformer';
-import { hashString } from '../utils/helpers';
+import { BaseEntity } from './baseEntity';
 import { Bill } from './bills';
 
 @Entity()
-export class Firm {
-  @PrimaryKey()
-  id!: number;
-
+export class Firm extends BaseEntity {
   @Property({
     length: 50,
   })
@@ -37,10 +31,4 @@ export class Firm {
     orphanRemoval: true,
   })
   sales = new Collection<Bill>(this);
-
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }

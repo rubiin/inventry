@@ -1,16 +1,12 @@
 import {
-  BeforeCreate,
-  BeforeUpdate,
   Entity,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { BaseEntity } from './baseEntity';
 
 @Entity()
-export class Expenses {
-  @PrimaryKey()
-  id!: number;
-
+export class Expenses extends BaseEntity {
   @Property()
   cost: number;
 
@@ -18,10 +14,4 @@ export class Expenses {
     length: 250,
   })
   type: string;
-
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }

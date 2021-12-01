@@ -1,19 +1,15 @@
 import {
-  BeforeCreate,
-  BeforeUpdate,
-  Collection,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
+import { BaseEntity } from './baseEntity';
 import { Product } from './products';
 
 @Entity()
-export class Sales {
-  @PrimaryKey()
-  id!: number;
+export class Sales extends BaseEntity {
+
 
   @Property()
   quantity: number;
@@ -30,9 +26,5 @@ export class Sales {
   @Property({ nullable: true })
   vat?: number;
 
-  @Property()
-  createdAt: Date = new Date();
 
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }

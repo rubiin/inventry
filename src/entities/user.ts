@@ -7,11 +7,11 @@ import {
 } from '@mikro-orm/core';
 import { Exclude } from 'class-transformer';
 import { hashString } from '../utils/helpers';
+import { BaseEntity } from './baseEntity';
 
 @Entity()
-export class User {
-  @PrimaryKey()
-  id!: number;
+export class User extends BaseEntity {
+
 
   @Property({
     length: 50,
@@ -45,9 +45,4 @@ export class User {
     this.password = await hashString(this.password);
   }
 
-  @Property()
-  createdAt: Date = new Date();
-
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
 }
