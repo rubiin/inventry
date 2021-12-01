@@ -4,6 +4,6 @@ import { FirmController } from './firm.controller';
 
 @Module({
   controllers: [FirmController],
-  providers: [FirmService]
+  providers: [FirmService],
 })
 export class FirmModule {}
