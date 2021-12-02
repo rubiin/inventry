@@ -4,7 +4,10 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Product } from 'src/entities/products';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -16,15 +19,17 @@ export class ProductsService {
     private readonly productRepository: EntityRepository<Product>,
   ) {}
 
-  async create(dto: CreateProductDto) {
-    const userExist = await this.productRepository.findOne({ name: dto.name });
-    if (userExist)
-      throw new BadRequestException('User already registered with email');
+  async create(dto: CreateProductDto, image: string) {
+    const productExist = await this.productRepository.findOne({
+      name: dto.name,
+    });
+    if (productExist)
+      throw new BadRequestException('Product with name already exists');
 
-    const newUser = this.productRepository.create(dto);
-    await this.productRepository.persistAndFlush(newUser);
+    const newProduct = this.productRepository.create({ ...dto, image });
+    await this.productRepository.persistAndFlush(newProduct);
 
-    return newUser;
+    return newProduct;
   }
 
   async findAll() {

@@ -51,6 +51,6 @@ export class UserService {
   }
 
   async remove(id: number) {
-    return this.userRepository.nativeDelete({id});
+    return this.userRepository.nativeDelete({ id });
   }
 }

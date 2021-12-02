@@ -20,6 +20,11 @@ export class Product extends BaseEntity {
   })
   description: string;
 
+  @Property({
+    length: 250,
+  })
+  image: string;
+
   @Property()
   quantity: number;
 
