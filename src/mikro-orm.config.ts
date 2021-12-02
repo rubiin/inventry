@@ -2,12 +2,12 @@ import { Options } from '@mikro-orm/core';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
 const config: Options = {
-  type: 'mysql',
+  type: 'postgresql',
   host: 'localhost',
-  port: 3306,
+  port: 5432,
   user: 'user',
-  password: 'password',
-  dbName: 'test',
+  password: 'mysecretpassword',
+  dbName: 'postgres',
   migrations: {
     path: 'src/migrations/',
     tableName: 'migrations',

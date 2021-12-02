@@ -8,10 +8,10 @@ import {
 import { UserLoginDto } from './dtos/user-login';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
-import { User } from '../entities/user';
+import { User } from '../../entities/user';
 import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
-import config from '../config/config';
+import config from '../../config/config';
 
 @Injectable()
 export class AuthService {
@@ -49,7 +49,7 @@ export class AuthService {
     if (await argon.verify(user.password, userDto.password)) {
       return {
         message: 'Successfully signed in',
-        data: payload,
+        data: { ...payload, accessToken },
       };
     } else {
       throw new UnauthorizedException('Invalid credentials');

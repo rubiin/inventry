@@ -1,10 +1,10 @@
-import { User } from '../entities/user';
+import { User } from '../../entities/user';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import config from '../config/config';
+import config from '../../config/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
