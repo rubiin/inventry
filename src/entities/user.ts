@@ -11,8 +11,6 @@ import { BaseEntity } from './baseEntity';
 
 @Entity()
 export class User extends BaseEntity {
-
-
   @Property({
     length: 50,
   })
@@ -44,5 +42,4 @@ export class User extends BaseEntity {
   async hashPassword() {
     this.password = await hashString(this.password);
   }
-
 }

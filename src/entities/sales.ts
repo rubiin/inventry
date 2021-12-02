@@ -1,16 +1,9 @@
-import {
-  Entity,
-  ManyToOne,
-  PrimaryKey,
-  Property,
-} from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
 import { Product } from './products';
 
 @Entity()
 export class Sales extends BaseEntity {
-
-
   @Property()
   quantity: number;
 
@@ -25,6 +18,4 @@ export class Sales extends BaseEntity {
 
   @Property({ nullable: true })
   vat?: number;
-
-
 }

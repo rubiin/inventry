@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional } from "class-validator";
+import { IsNumber, IsOptional } from 'class-validator';
 
 export class CreateSaleDto {
   @IsNumber()
@@ -14,6 +14,4 @@ export class CreateSaleDto {
   @IsOptional()
   @IsNumber()
   vat: number;
-
-
 }

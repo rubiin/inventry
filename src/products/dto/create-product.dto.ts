@@ -1,4 +1,4 @@
-import { IsNumber,MaxLength,IsString } from "class-validator";
+import { IsNumber, MaxLength, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -14,5 +14,4 @@ export class CreateProductDto {
 
   @IsNumber()
   quantity: number;
-
 }

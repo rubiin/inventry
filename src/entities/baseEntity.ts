@@ -9,4 +9,7 @@ export abstract class BaseEntity {
 
   @Property({ onUpdate: () => new Date() })
   updatedAt = new Date();
+
+  @Property()
+  isActive: boolean = true;
 }
