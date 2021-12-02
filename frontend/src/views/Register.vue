@@ -1,6 +1,5 @@
 <template>
- <b-overlay :show="show" rounded="sm">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" ref="formContainer">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
         <div class="card-body px-lg-5 py-lg-5">
@@ -51,8 +50,7 @@
               </div>
             </div>
             <div class="text-center">
-              <base-button type="primary" class="my-4"
-              @click="signUp"
+              <base-button type="primary" class="my-4" @click="signUp"
                 >Create account</base-button
               >
             </div>
@@ -73,14 +71,14 @@
       </div>
     </div>
   </div>
- </b-overlay>
 </template>
 <script>
 export default {
   name: 'register',
+  components: {
+  },
   data() {
     return {
-      show: true,
       model: {
         name: '',
         email: '',
@@ -90,13 +88,18 @@ export default {
   },
   methods: {
     async signUp() {
-      console.log(this.model);
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer
+       
+      });
       await this.$store
         .dispatch('user/signUp', this.model)
         .then((res) => {
+          loader.hide();
           console.log(res);
         })
         .catch((err) => {
+         // loader.hide();
           console.log(err);
         });
     },

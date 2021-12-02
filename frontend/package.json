@@ -19,6 +19,7 @@
     "nouislider": "14.6.0",
     "vee-validate": "^3.4.14",
     "vue": "3.0.5",
+    "vue-loading-overlay": "^4.0",
     "vue-router": "4.0.1",
     "vue-toastification": "1.7.11",
     "vuex": "^4.0.2"

@@ -4,6 +4,9 @@ import router from './router';
 import ArgonDashboard from './plugins/argon-dashboard';
 import 'element-plus/lib/theme-chalk/index.css';
 import store from './store/store'
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 
 // axios
 import axios from './axios/axios';
@@ -12,6 +15,9 @@ const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(ArgonDashboard);
 appInstance.use(store);
+appInstance.use(VueLoading, {
+  color: '#5e72e4',
+});
 
 appInstance.config.globalProperties.$http = axios;
 
