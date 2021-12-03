@@ -13,4 +13,18 @@ export default {
         });
     });
   },
+
+  login({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('auth/login', data)
+        .then((res) => {
+          commit('COMMIT_LOGGED_IN', res.data.data);
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
 };

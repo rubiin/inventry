@@ -25,11 +25,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Project</th>
-          <th>Budget</th>
-          <th>Status</th>
-          <th>Users</th>
-          <th>Completion</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Qunatity</th>
+          <th>Updated</th>
           <th></th>
         </template>
 

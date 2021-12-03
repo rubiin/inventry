@@ -8,6 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ListQueryBaseDto } from 'src/common/dto';
 import { Product } from 'src/entities/products';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -32,8 +33,28 @@ export class ProductsService {
     return newProduct;
   }
 
-  async findAll() {
-    return await this.productRepository.findAll();
+  async findAll(listQuery: ListQueryBaseDto) {
+    const { limit, search, page } = listQuery;
+
+    const offset = limit * (page - 1);
+
+    let product,total;
+
+    if(search) {
+   [product, total] = await this.productRepository.findAndCount(
+     { name: search },
+     { limit, offset },
+   );
+    }
+    else{
+         [product, total] = await this.productRepository.findAndCount({},
+           { limit, offset },
+         );
+    }
+  
+    const pages = Math.ceil(total / limit);
+
+    return {pages, total, product};
   }
 
   async getOne(id: number) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" ref="formContainer">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
         <div class="card-body px-lg-5 py-lg-5">
@@ -28,7 +28,7 @@
               <span class="text-muted">Remember me</span>
             </base-checkbox>
             <div class="text-center">
-              <base-button type="primary" class="my-4">Sign in</base-button>
+              <base-button type="primary" class="my-4" @click="loginUser">Sign in</base-button>
             </div>
           </form>
         </div>
@@ -56,6 +56,25 @@ export default {
         password: '',
       },
     };
+  },
+  methods: {
+    async loginUser() {
+        let loader = this.$loading.show({
+        container: this.$refs.formContainer
+       
+      });
+      await this.$store
+        .dispatch('user/login', this.model)
+        .then((res) => {
+          loader.hide();
+          this.$router.push({ name: 'dashboard' });
+          console.log(res.data);
+        })
+        .catch((err) => {
+          loader.hide();
+          console.log(err);
+        });
+    }
   },
 };
 </script>

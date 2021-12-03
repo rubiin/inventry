@@ -8,6 +8,10 @@ export default {
   ADD_USER(state, payload) {
     state.users.push(payload);
   },
+
+  COMMIT_LOGGED_IN(state, payload) {
+    state.loggedInUser = payload;
+  },
   UPDATE_USER(state, payload) {
     // Find index
     const index = state.users.findIndex((user) => user.id === payload.id);
