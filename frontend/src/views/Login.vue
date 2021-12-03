@@ -28,7 +28,9 @@
               <span class="text-muted">Remember me</span>
             </base-checkbox>
             <div class="text-center">
-              <base-button type="primary" class="my-4" @click="loginUser">Sign in</base-button>
+              <base-button type="primary" class="my-4" @click="loginUser"
+                >Sign in</base-button
+              >
             </div>
           </form>
         </div>
@@ -59,9 +61,8 @@ export default {
   },
   methods: {
     async loginUser() {
-        let loader = this.$loading.show({
-        container: this.$refs.formContainer
-       
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
       });
       await this.$store
         .dispatch('user/login', this.model)
@@ -74,7 +75,7 @@ export default {
           loader.hide();
           console.log(err);
         });
-    }
+    },
   },
 };
 </script>

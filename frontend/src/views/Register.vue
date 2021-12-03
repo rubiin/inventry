@@ -75,8 +75,7 @@
 <script>
 export default {
   name: 'register',
-  components: {
-  },
+  components: {},
   data() {
     return {
       model: {
@@ -89,8 +88,7 @@ export default {
   methods: {
     async signUp() {
       let loader = this.$loading.show({
-        container: this.$refs.formContainer
-       
+        container: this.$refs.formContainer,
       });
       await this.$store
         .dispatch('user/signUp', this.model)
@@ -99,7 +97,7 @@ export default {
           console.log(res);
         })
         .catch((err) => {
-         // loader.hide();
+          // loader.hide();
           console.log(err);
         });
     },

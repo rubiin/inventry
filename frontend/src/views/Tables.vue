@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="formContainer">
     <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
       <!-- Card stats -->
       <div class="row">
@@ -73,15 +73,28 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <projects-table title="Products"></projects-table>
+          <projects-table
+            title="Products"
+            addText="Add Product"
+            :tableData="products"
+            @add="addProduct"
+          ></projects-table>
+    
         </div>
       </div>
-  
+                <div
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
+    >
+      <base-pagination total="30" :pageCount="totalPage" @input="pageNumber = $event" :value="pageNumber"></base-pagination>
+    </div>
     </div>
   </div>
 </template>
 <script>
 import ProjectsTable from './Tables/ProjectsTable';
+import { mapState } from 'vuex';
+
 export default {
   name: 'tables',
   components: {
@@ -89,8 +102,50 @@ export default {
   },
   data() {
     return {
-     
-    }
+      pageNumber: 1,
+      totalData: 0,
+      limit: 5,
+    };
+  },
+  computed: {
+    ...mapState('products', ['products']),
+       totalPage: function () {
+      return Math.ceil(this.totalData / this.limit);
+    },
+  },
+  methods: {
+    async addProduct($event) {
+      alert($event);
+    },
+    async getAllProducts(limit = this.limit, page = this.pageNumber) {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      const params = `?page=${page}&limit=${limit}`;
+      await this.$store
+        .dispatch('products/getAllProducts', params)
+        .then((res) => {
+          loader.hide();
+          this.totalData = res.data.total_items;
+          console.log(res);
+        })
+        .catch((err) => {
+          loader.hide();
+          console.log(err);
+        });
+    },
+  },
+  async mounted() {
+    await this.getAllProducts();
+  },
+  watch: {
+    pageNumber(val) {
+      this.getAllProducts( this.limit,val);
+    },
+    limit(val) {
+      this.getAllProducts( val,this.pageNumber);
+  },
   },
 };
 </script>

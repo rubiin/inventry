@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import {auth} from '../auth/auth'
+import { auth } from '../auth/auth';
 
 import DashboardLayout from '@/layout/DashboardLayout';
 import AuthLayout from '@/layout/AuthLayout';

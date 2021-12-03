@@ -4,10 +4,7 @@
       <div class="col-lg-6">
         <div class="copyright text-center text-lg-left text-muted">
           © {{ year }}
-          <a
-            href="#"
-            class="font-weight-bold ml-1"
-            target="_blank"
+          <a href="#" class="font-weight-bold ml-1" target="_blank"
             >Creative Tim</a
           >
         </div>
@@ -16,7 +13,6 @@
         <ul
           class="nav nav-footer justify-content-center justify-content-lg-end"
         >
-      
           <li class="nav-item">
             <a
               href="https://www.creative-tim.com/presentation"

@@ -12,7 +12,6 @@ import Notifications from '@kyvg/vue3-notification';
 import axios from './axios/axios';
 import moment from 'moment';
 
-
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(ArgonDashboard);
