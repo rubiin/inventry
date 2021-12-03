@@ -73,7 +73,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <projects-table title="Light Table"></projects-table>
+          <projects-table title="Products"></projects-table>
         </div>
       </div>
   
@@ -86,6 +86,11 @@ export default {
   name: 'tables',
   components: {
     ProjectsTable,
+  },
+  data() {
+    return {
+     
+    }
   },
 };
 </script>

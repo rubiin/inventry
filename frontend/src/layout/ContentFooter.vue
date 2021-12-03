@@ -5,7 +5,7 @@
         <div class="copyright text-center text-lg-left text-muted">
           © {{ year }}
           <a
-            href="https://www.creative-tim.com"
+            href="#"
             class="font-weight-bold ml-1"
             target="_blank"
             >Creative Tim</a
@@ -16,14 +16,7 @@
         <ul
           class="nav nav-footer justify-content-center justify-content-lg-end"
         >
-          <li class="nav-item">
-            <a
-              href="https://www.creative-tim.com"
-              class="nav-link"
-              target="_blank"
-              >Creative Tim</a
-            >
-          </li>
+      
           <li class="nav-item">
             <a
               href="https://www.creative-tim.com/presentation"

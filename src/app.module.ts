@@ -9,11 +9,17 @@ import { BillsModule } from './modules/bills/bills.module';
 import { FirmModule } from './modules/firm/firm.module';
 import { ProductsModule } from './modules/products/products.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     UserModule,
     MikroOrmModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'files'),
+      exclude: ['/api*'],
+    }),
     ExpenseModule,
     SalesModule,
     BillsModule,

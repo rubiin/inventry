@@ -38,7 +38,7 @@ export class ProductsService {
 
     const offset = limit * (page - 1);
 
-    let product,total;
+    let product: Product[],total: number;
 
     if(search) {
    [product, total] = await this.productRepository.findAndCount(

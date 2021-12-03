@@ -3,14 +3,15 @@ import App from './App.vue';
 import router from './router';
 import ArgonDashboard from './plugins/argon-dashboard';
 import 'element-plus/lib/theme-chalk/index.css';
-import store from './store/store'
+import store from './store/store';
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Notifications from '@kyvg/vue3-notification';
 
-
 // axios
 import axios from './axios/axios';
+import moment from 'moment';
+
 
 const appInstance = createApp(App);
 appInstance.use(router);

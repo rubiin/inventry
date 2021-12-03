@@ -26,8 +26,8 @@
       >
         <template v-slot:columns>
           <th>Product</th>
-          <th>Price</th>
           <th>Description</th>
+          <th>Price</th>
           <th>Qunatity</th>
           <th>Updated</th>
           <th></th>
@@ -37,84 +37,33 @@
           <th scope="row">
             <div class="media align-items-center">
               <a href="#" class="avatar rounded-circle mr-3">
-                <img alt="Image placeholder" :src="row.item.img" />
+                <img alt="Image placeholder" :src="IMAGE_URL+row.item.image" />
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">{{ row.item.title }}</span>
+                <span class="name mb-0 text-sm">{{ row.item.name }}</span>
               </div>
             </div>
           </th>
+
+            <td>
+             {{ row.item.description }}
+          </td>
           <td class="budget">
-            {{ row.item.budget }}
+            {{ row.item.price }}
           </td>
-          <td>
-            <badge class="badge-dot mr-4" :type="row.item.statusType">
-              <i :class="`bg-${row.item.statusType}`"></i>
-              <span class="status">{{ row.item.status }}</span>
-            </badge>
-          </td>
-          <td>
-            <div class="avatar-group">
-              <a
-                href="#"
-                class="avatar avatar-sm rounded-circle"
-                data-toggle="tooltip"
-                data-original-title="Ryan Tompson"
-              >
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-1-800x800.jpg"
-                />
-              </a>
-              <a
-                href="#"
-                class="avatar avatar-sm rounded-circle"
-                data-toggle="tooltip"
-                data-original-title="Romina Hadid"
-              >
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-2-800x800.jpg"
-                />
-              </a>
-              <a
-                href="#"
-                class="avatar avatar-sm rounded-circle"
-                data-toggle="tooltip"
-                data-original-title="Alexander Smith"
-              >
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-3-800x800.jpg"
-                />
-              </a>
-              <a
-                href="#"
-                class="avatar avatar-sm rounded-circle"
-                data-toggle="tooltip"
-                data-original-title="Jessica Doe"
-              >
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-4-800x800.jpg"
-                />
-              </a>
-            </div>
-          </td>
+        
 
           <td>
-            <div class="d-flex align-items-center">
-              <span class="completion mr-2">{{ row.item.completion }}%</span>
-              <div>
-                <base-progress
-                  :type="row.item.statusType"
-                  :show-percentage="false"
-                  class="pt-0"
-                  :value="row.item.completion"
-                />
-              </div>
-            </div>
+            <badge class="badge-dot mr-4" :type="completed">
+              <span class="status">{{ row.item.quantity }}</span>
+            </badge>
           </td>
+
+        
+          <td>
+            {{ formatDate(row.item.createdAt) }}
+          </td>
+
 
           <td class="text-right">
             <base-dropdown class="dropdown" position="right">
@@ -150,6 +99,7 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
 export default {
   name: 'projects-table',
   props: {
@@ -160,49 +110,67 @@ export default {
   },
   data() {
     return {
+      IMAGE_URL: 'http://localhost:8000/',
       tableData: [
         {
-          img: 'img/theme/bootstrap.jpg',
-          title: 'Argon Design System',
-          budget: '$2500 USD',
-          status: 'pending',
-          statusType: 'warning',
-          completion: 60,
+          id: 3,
+          createdAt: '2021-12-02T14:11:19.000Z',
+          name: 'danio fish',
+          description: 'hello',
+          image: 'danio-1638454279080.jpg',
+          quantity: 5,
+          price: 100,
+          sales: {
+            initialized: true,
+            dirty: false,
+          },
         },
         {
-          img: 'img/theme/angular.jpg',
-          title: 'Angular Now UI Kit PRO',
-          budget: '$1800 USD',
-          status: 'completed',
-          statusType: 'success',
-          completion: 100,
+          id: 4,
+          createdAt: '2021-12-02T14:12:17.000Z',
+          name: 'polar fish',
+          description: 'hello',
+          image: 'polar-1638454337121.jpg',
+          quantity: 5,
+          price: 100,
+          sales: {
+            initialized: true,
+            dirty: false,
+          },
         },
         {
-          img: 'img/theme/sketch.jpg',
-          title: 'Black Dashboard',
-          budget: '$3150 USD',
-          status: 'delayed',
-          statusType: 'danger',
-          completion: 72,
+          id: 5,
+          createdAt: '2021-12-03T04:38:31.000Z',
+          name: 'mos fish',
+          description: 'hello',
+          image: 'mos-1638506310770.jpg',
+          quantity: 5,
+          price: 56,
+          sales: {
+            initialized: true,
+            dirty: false,
+          },
         },
         {
-          img: 'img/theme/react.jpg',
-          title: 'React Material Dashboard',
-          budget: '$4400 USD',
-          status: 'on schedule',
-          statusType: 'info',
-          completion: 90,
-        },
-        {
-          img: 'img/theme/vue.jpg',
-          title: 'Vue Paper UI Kit PRO',
-          budget: '$2200 USD',
-          status: 'completed',
-          statusType: 'success',
-          completion: 100,
+          id: 6,
+          createdAt: '2021-12-03T04:38:44.000Z',
+          name: 'parrot fish',
+          description: 'hello',
+          image: 'parrot-1638506323968.jpg',
+          quantity: 5,
+          price: 56,
+          sales: {
+            initialized: true,
+            dirty: false,
+          },
         },
       ],
     };
+  },
+   methods: {
+    formatDate(date) {
+      return moment(date).format('DD-MMM-YYYY');
+    },
   },
 };
 </script>

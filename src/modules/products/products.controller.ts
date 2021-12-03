@@ -9,6 +9,7 @@ import {
   UploadedFile,
   UseInterceptors,
   Query,
+  Res,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -49,7 +50,10 @@ export class ProductsController {
     const { pages, total, product } = await this.productsService.findAll(
       listQuery,
     );
-    return { message: 'Products', ...paginate(pages,listQuery.page, total, product) };
+    return {
+      message: 'Products',
+      ...paginate(pages, listQuery.page, total, product),
+    };
   }
 
   @Get(':id')
@@ -58,6 +62,8 @@ export class ProductsController {
 
     return { message: 'Product details', data };
   }
+
+ 
 
   @Patch(':id')
   async update(
