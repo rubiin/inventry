@@ -81,7 +81,7 @@ export class ProductsController {
     const data = await this.productsService.update(
       +id,
       updateProductDto,
-      image.filename,
+      image?.filename,
     );
 
     return { message: 'Products', data };

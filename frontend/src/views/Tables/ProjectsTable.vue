@@ -42,6 +42,7 @@
                 <img
                   alt="Image placeholder"
                   :src="IMAGE_URL + row.item.image"
+                  style="max-width: 100%; height: auto"
                 />
               </a>
               <div class="media-body">

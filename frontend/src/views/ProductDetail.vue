@@ -31,10 +31,18 @@
                   <div class="image-wrapper">
                     <div class="personal-image">
                       <label class="label">
-                        <input type="file" @change="uploadFile($event)" />
+                        <input
+                          type="file"
+                          @change="uploadFile($event)"
+                          :disabled="viewOnly"
+                        />
                         <figure class="personal-figure">
                           <img
-                            :src="IMAGE_URL + model.image"
+                            :src="
+                              model.image === ''
+                                ? 'https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png'
+                                : IMAGE_URL + model.image
+                            "
                             class="personal-avatar"
                             alt="avatar"
                           />
@@ -54,6 +62,7 @@
                       alternative=""
                       label="Product name"
                       placeholder="Product name"
+                      :disabled="viewOnly"
                       input-classes="form-control-alternative"
                       v-model="model.name"
                     />
@@ -62,6 +71,7 @@
                     <base-input
                       alternative=""
                       label="Price"
+                      :disabled="viewOnly"
                       placeholder="100"
                       input-classes="form-control-alternative"
                       v-model="model.price"
@@ -74,16 +84,18 @@
                       alternative=""
                       label="Quantity"
                       placeholder="Quantity"
+                      :disabled="viewOnly"
                       input-classes="form-control-alternative"
                       v-model="model.quantity"
                     />
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <base-input alternative="" label="About Me">
+                      <base-input alternative="" label="Product description">
                         <textarea
                           rows="4"
                           v-model="model.description"
+                          :disabled="viewOnly"
                           class="form-control form-control-alternative"
                           placeholder="A few words about the item ..."
                         ></textarea>
@@ -92,8 +104,13 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <base-button type="primary">Button</base-button>
+                <div class="row flex justify-end">
+                  <base-button
+                    type="primary"
+                    v-if="!viewOnly"
+                    @click="mode === 'create' ? addProduct() : updateProduct()"
+                    >{{ mode === 'create' ? 'Create' : 'Update' }}</base-button
+                  >
                 </div>
               </div>
             </form>
@@ -105,7 +122,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import axios from 'axios';
 export default {
   name: 'user-profile',
   data() {
@@ -117,11 +133,57 @@ export default {
         quantity: 0,
         image: '',
       },
+      mode: 'view',
       image: null,
+      viewOnly: false,
       IMAGE_URL: 'http://localhost:8000/',
     };
   },
   methods: {
+    async addProduct() {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+      let formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('name', this.model.name);
+      formData.append('description', this.model.description);
+      formData.append('price', this.model.price);
+      formData.append('quantity', this.model.quantity);
+
+      const payload = {
+        config: {
+          header: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+        data: formData,
+      };
+
+      await this.$store
+        .dispatch('products/createProduct', payload)
+        .then((res) => {
+          loader.hide();
+
+          this.$notify({
+            title: 'Info',
+            text: 'Added product',
+            type: 'success',
+          });
+
+          this.$router.push({
+            name: 'products',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            title: 'Error',
+            text: 'Cannot create product',
+            type: 'error',
+          });
+        });
+    },
     async updateProduct() {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
@@ -140,7 +202,7 @@ export default {
           },
         },
         data: formData,
-        id: this.$route.params.id,
+        id: this.$route.query.id,
       };
 
       await this.$store
@@ -150,15 +212,19 @@ export default {
 
           this.$notify({
             title: 'Info',
-            text: 'Updated roduct',
+            text: 'Updated product',
             type: 'success',
+          });
+
+          this.$router.push({
+            name: 'products',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Products cannot be fetched',
+            text: 'Product cannot be updated',
             type: 'danger',
           });
           console.log(err);
@@ -172,7 +238,14 @@ export default {
     ...mapGetters('products', ['getProductById']),
   },
   mounted() {
-    this.model = this.getProductById(this.$route.params.id);
+    this.mode = this.$route.query.mode;
+
+    if (this.$route.query.id) {
+      this.model = this.getProductById(this.$route.query.id);
+    }
+    if (this.mode) {
+      this.viewOnly = this.mode === 'view' ? true : false;
+    }
   },
 };
 </script>
@@ -217,9 +290,9 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .personal-figcaption > img {
-  margin-top: 32.5px;
-  width: 50px;
-  height: 50px;
+  width: inherit;
+  height: inherit;
+  transform: scale(0.29);
 }
 
 .image-wrapper {

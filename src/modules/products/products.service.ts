@@ -43,12 +43,12 @@ export class ProductsService {
     if(search) {
    [product, total] = await this.productRepository.findAndCount(
      { name: search },
-     { limit, offset, orderBy: { id: QueryOrder.ASC } },
+     { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
    );
     }
     else{
          [product, total] = await this.productRepository.findAndCount({},
-           { limit, offset },
+           { limit, offset, orderBy: { createdAt: QueryOrder.ASC }},
          );
     }
   
@@ -71,7 +71,11 @@ export class ProductsService {
 
   async update(id: number, dto: UpdateProductDto,image:string) {
     const product = await this.getOne(id);
-    wrap(product).assign({...dto,image});
+    let data : any= dto;
+    if(image){
+      data = {...dto,image}
+    }
+    wrap(product).assign(data);
     await this.productRepository.flush();
     return product;
   }

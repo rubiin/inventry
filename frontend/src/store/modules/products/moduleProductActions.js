@@ -18,7 +18,33 @@ export default {
   updateAProduct({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .patch('/product' + data.id, data.data, data.config)
+        .patch('/product/' + data.id, data.data, data.config)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err.response);
+        });
+    });
+  },
+
+  createProduct({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('/product/', data.data, data.config)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err.response);
+        });
+    });
+  },
+
+  deleteProduct({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete('/product/', data.id)
         .then((res) => {
           return resolve(res);
         })

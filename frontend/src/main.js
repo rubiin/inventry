@@ -8,6 +8,7 @@ import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Notifications from '@kyvg/vue3-notification';
 import velocity from 'velocity-animate';
+import './styles/app.css'; // Here
 
 // axios
 import axios from './axios/axios';

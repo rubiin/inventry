@@ -78,8 +78,8 @@
             addText="Add Product"
             :tableData="products"
             @add="addProduct"
-            @edit="addProduct"
-            @remove="addProduct"
+            @edit="editProduct($event)"
+            @remove="deleteProduct($event)"
             @view="viewProduct($event)"
           ></projects-table>
         </div>
@@ -121,16 +121,38 @@ export default {
     },
   },
   methods: {
-    async addProduct(event) {},
-    viewProduct(id) {
+    async addProduct() {
       this.$router.push({
         name: 'product-detail',
-        params: {
+        query: {
+          mode: 'create',
+        },
+      });
+    },
+
+    editProduct(id){
+ this.$router.push({
+        name: 'product-detail',
+        query: {
+          mode: 'update',
           id,
         },
       });
     },
-    async deleteProduct() {},
+    viewProduct(id) {
+      this.$router.push({
+        name: 'product-detail',
+        query: {
+          mode: 'view',
+          id,
+        },
+      });
+    },
+    async deleteProduct() {
+
+
+      
+    },
     async getAllProducts(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,

@@ -52,7 +52,7 @@ const routes = [
         },
       },
       {
-        path: '/product-detail/:id',
+        path: '/product-detail',
         name: 'product-detail',
         components: { default: ProductDetail },
         meta: {
