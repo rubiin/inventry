@@ -63,14 +63,26 @@ export class ProductsController {
     return { message: 'Product details', data };
   }
 
- 
-
   @Patch(':id')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './files',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   async update(
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
+    @UploadedFile() image: Express.Multer.File,
   ) {
-    const data = await this.productsService.update(+id, updateProductDto);
+    const data = await this.productsService.update(
+      +id,
+      updateProductDto,
+      image.filename,
+    );
 
     return { message: 'Products', data };
   }

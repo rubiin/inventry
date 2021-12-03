@@ -14,4 +14,17 @@ export default {
         });
     });
   },
+
+  updateAProduct({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .patch('/product' + data.id, data.data, data.config)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err.response);
+        });
+    });
+  },
 };

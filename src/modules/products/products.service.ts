@@ -1,4 +1,4 @@
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
@@ -43,7 +43,7 @@ export class ProductsService {
     if(search) {
    [product, total] = await this.productRepository.findAndCount(
      { name: search },
-     { limit, offset },
+     { limit, offset, orderBy: { id: QueryOrder.ASC } },
    );
     }
     else{
@@ -69,9 +69,9 @@ export class ProductsService {
     return this.getOne(id);
   }
 
-  async update(id: number, dto: UpdateProductDto) {
+  async update(id: number, dto: UpdateProductDto,image:string) {
     const product = await this.getOne(id);
-    wrap(product).assign(dto);
+    wrap(product).assign({...dto,image});
     await this.productRepository.flush();
     return product;
   }

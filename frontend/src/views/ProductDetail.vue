@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="formContainer">
     <base-header
       class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
       style="
@@ -25,10 +25,29 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">
-                Product information
-              </h6>
+              <h6 class="heading-small text-muted mb-4">Product information</h6>
               <div class="pl-lg-4">
+                <div class="row">
+                  <div class="image-wrapper">
+                    <div class="personal-image">
+                      <label class="label">
+                        <input type="file" @change="uploadFile($event)" />
+                        <figure class="personal-figure">
+                          <img
+                            :src="IMAGE_URL + model.image"
+                            class="personal-avatar"
+                            alt="avatar"
+                          />
+                          <figcaption class="personal-figcaption">
+                            <img
+                              src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"
+                            />
+                          </figcaption>
+                        </figure>
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-lg-6">
                     <base-input
@@ -72,6 +91,10 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <base-button type="primary">Button</base-button>
+                </div>
               </div>
             </form>
           </card>
@@ -81,25 +104,127 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex';
+import axios from 'axios';
 export default {
   name: 'user-profile',
   data() {
     return {
       model: {
-       name: '',
-       description: '',
-       price: 0,
-       quantity: 0,
+        name: '',
+        description: '',
+        price: 0,
+        quantity: 0,
+        image: '',
       },
+      image: null,
+      IMAGE_URL: 'http://localhost:8000/',
     };
   },
-  computed: {
-    ...mapGetters('products',['getProductById']),
+  methods: {
+    async updateProduct() {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+      let formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('name', this.model.name);
+      formData.append('description', this.model.description);
+      formData.append('price', this.model.price);
+      formData.append('quantity', this.model.quantity);
+
+      const payload = {
+        config: {
+          header: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+        data: formData,
+        id: this.$route.params.id,
+      };
+
+      await this.$store
+        .dispatch('products/updateAProduct', payload)
+        .then((res) => {
+          loader.hide();
+
+          this.$notify({
+            title: 'Info',
+            text: 'Updated roduct',
+            type: 'success',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            title: 'Error',
+            text: 'Products cannot be fetched',
+            type: 'danger',
+          });
+          console.log(err);
+        });
+    },
+    uploadFile(event) {
+      this.image = event.target.files[0];
+    },
   },
-  mounted () {
+  computed: {
+    ...mapGetters('products', ['getProductById']),
+  },
+  mounted() {
     this.model = this.getProductById(this.$route.params.id);
   },
 };
 </script>
-<style></style>
+<style>
+.personal-image {
+  text-align: center;
+}
+.personal-image input[type='file'] {
+  display: none;
+}
+.personal-figure {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.personal-avatar {
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: all ease-in-out 0.3s;
+}
+.personal-avatar:hover {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+.personal-figcaption {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  width: inherit;
+  height: inherit;
+  border-radius: 100%;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all ease-in-out 0.3s;
+}
+.personal-figcaption:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.personal-figcaption > img {
+  margin-top: 32.5px;
+  width: 50px;
+  height: 50px;
+}
+
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+</style>
