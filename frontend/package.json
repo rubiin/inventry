@@ -24,7 +24,9 @@
     "vue-loading-overlay": "^4.0",
     "vue-router": "4.0.1",
     "vue-toastification": "1.7.11",
-    "vuex": "^4.0.2"
+    "vue-upload-component": "^3.0.50",
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.10",

@@ -78,6 +78,9 @@
             addText="Add Product"
             :tableData="products"
             @add="addProduct"
+            @edit="addProduct"
+            @remove="addProduct"
+            @view="viewProduct($event)"
           ></projects-table>
         </div>
       </div>
@@ -118,7 +121,16 @@ export default {
     },
   },
   methods: {
-    async addProduct() {},
+    async addProduct(event) {},
+    viewProduct(id) {
+      this.$router.push({
+        name: 'product-detail',
+        params: {
+          id,
+        },
+      });
+    },
+    async deleteProduct() {},
     async getAllProducts(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,

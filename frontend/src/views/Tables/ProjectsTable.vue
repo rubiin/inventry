@@ -57,11 +57,7 @@
             {{ row.item.price }}
           </td>
 
-          <td>
-            <badge class="badge-dot mr-4" :type="completed">
-              <span class="status">{{ row.item.quantity }}</span>
-            </badge>
-          </td>
+          <td>{{ row.item.quantity }}</td>
 
           <td>
             {{ formatDate(row.item.createdAt) }}
@@ -80,9 +76,15 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </a>
               </template>
-              <a class="dropdown-item" href="#">View</a>
-              <a class="dropdown-item" href="#">Edit</a>
-              <a class="dropdown-item" href="#">Delete</a>
+              <a class="dropdown-item" href="#" @click="viewData(row.item.id)"
+                >View</a
+              >
+              <a class="dropdown-item" href="#" @click="editData(row.item.id)"
+                >Edit</a
+              >
+              <a class="dropdown-item" href="#" @click="removeData(row.item.id)"
+                >Delete</a
+              >
             </base-dropdown>
           </td>
         </template>
@@ -97,6 +99,7 @@ export default {
   props: {
     type: {
       type: String,
+      default: 'light',
     },
     addText: {
       type: String,
@@ -115,8 +118,19 @@ export default {
     formatDate(date) {
       return moment(date).format('DD-MMM-YYYY');
     },
-    addData() {
-      this.$emit('add');
+    addData(val) {
+      this.$emit('add', val);
+    },
+
+    viewData(val) {
+      this.$emit('view', val);
+    },
+    removeData(val) {
+      this.$emit('remove', val);
+    },
+
+    editData(val) {
+      this.$emit('edit', val);
     },
   },
 };
