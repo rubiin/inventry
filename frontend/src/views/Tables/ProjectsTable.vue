@@ -11,7 +11,9 @@
           </h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm" @click="addData">{{addText}}</base-button>
+          <base-button type="primary" size="sm" @click="addData">{{
+            addText
+          }}</base-button>
         </div>
       </div>
     </div>
@@ -78,19 +80,14 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </a>
               </template>
-
-              <template>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </template>
+              <a class="dropdown-item" href="#">View</a>
+              <a class="dropdown-item" href="#">Edit</a>
+              <a class="dropdown-item" href="#">Delete</a>
             </base-dropdown>
           </td>
         </template>
       </base-table>
     </div>
-
-
   </div>
 </template>
 <script>
@@ -101,7 +98,7 @@ export default {
     type: {
       type: String,
     },
-      addText: {
+    addText: {
       type: String,
     },
     tableData: {

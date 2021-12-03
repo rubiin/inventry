@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service lint --fix && vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -19,6 +19,7 @@
     "moment": "^2.29.1",
     "nouislider": "14.6.0",
     "vee-validate": "^3.4.14",
+    "velocity-animate": "^1.5.2",
     "vue": "3.0.5",
     "vue-loading-overlay": "^4.0",
     "vue-router": "4.0.1",

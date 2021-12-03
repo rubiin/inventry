@@ -79,15 +79,19 @@
             :tableData="products"
             @add="addProduct"
           ></projects-table>
-    
         </div>
       </div>
-                <div
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <base-pagination total="30" :pageCount="totalPage" @input="pageNumber = $event" :value="pageNumber"></base-pagination>
-    </div>
+      <div
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+      >
+        <base-pagination
+          total="30"
+          :pageCount="totalPage"
+          @input="pageNumber = $event"
+          :value="pageNumber"
+        ></base-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -109,14 +113,12 @@ export default {
   },
   computed: {
     ...mapState('products', ['products']),
-       totalPage: function () {
+    totalPage: function () {
       return Math.ceil(this.totalData / this.limit);
     },
   },
   methods: {
-    async addProduct($event) {
-      alert($event);
-    },
+    async addProduct() {},
     async getAllProducts(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
@@ -127,11 +129,23 @@ export default {
         .dispatch('products/getAllProducts', params)
         .then((res) => {
           loader.hide();
+
+          this.$notify({
+            title: 'Info',
+            text: 'Fetched Products',
+            type: 'success',
+          });
+
           this.totalData = res.data.total_items;
           console.log(res);
         })
         .catch((err) => {
           loader.hide();
+          this.$notify({
+            title: 'Error',
+            text: 'Products cannot be fetched',
+            type: 'danger',
+          });
           console.log(err);
         });
     },
@@ -141,11 +155,11 @@ export default {
   },
   watch: {
     pageNumber(val) {
-      this.getAllProducts( this.limit,val);
+      this.getAllProducts(this.limit, val);
     },
     limit(val) {
-      this.getAllProducts( val,this.pageNumber);
-  },
+      this.getAllProducts(val, this.pageNumber);
+    },
   },
 };
 </script>

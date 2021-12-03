@@ -8,7 +8,7 @@ import Dashboard from '../views/Dashboard.vue';
 import Icons from '../views/Icons.vue';
 import Maps from '../views/Maps.vue';
 import Profile from '../views/UserProfile.vue';
-import Tables from '../views/Tables.vue';
+import Product from '../views/Product.vue';
 
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
@@ -52,9 +52,9 @@ const routes = [
         },
       },
       {
-        path: '/tables',
-        name: 'tables',
-        components: { default: Tables },
+        path: '/products',
+        name: 'products',
+        components: { default: Product },
         meta: {
           requiresAuth: true,
         },
@@ -86,16 +86,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (
-    to.matched.some(
-      (record) => record.meta.requiresAuth,
-    ) /*&& to.name !== 'page-login'*/
-  ) {
-    auth(to, from, next);
-  } else {
-    return next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (
+//     to.matched.some(
+//       (record) => record.meta.requiresAuth,
+//     ) /*&& to.name !== 'page-login'*/
+//   ) {
+//     auth(to, from, next);
+//   } else {
+//     return next();
+//   }
+// });
 
 export default router;
