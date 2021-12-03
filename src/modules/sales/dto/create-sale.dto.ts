@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsDefined, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateSaleDto {
   @IsNumber()
@@ -14,4 +14,7 @@ export class CreateSaleDto {
   @IsOptional()
   @IsNumber()
   vat: number;
+
+  @IsDefined()
+  product: Record<string, any>;
 }

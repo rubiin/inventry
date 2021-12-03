@@ -11,6 +11,9 @@ import Profile from '../views/UserProfile.vue';
 import Product from '../views/Product.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 
+import Sale from '../views/Sales.vue';
+import SaleDetail from '../views/SaleDetail.vue';
+
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -63,6 +66,22 @@ const routes = [
         path: '/products',
         name: 'products',
         components: { default: Product },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/sales',
+        name: 'sales',
+        components: { default: Sale },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/sale-detail',
+        name: 'sale-detail',
+        components: { default: SaleDetail },
         meta: {
           requiresAuth: true,
         },

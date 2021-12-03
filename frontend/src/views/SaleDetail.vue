@@ -25,7 +25,7 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Product information</h6>
+              <h6 class="heading-small text-muted mb-4">Sale information</h6>
               <div class="pl-lg-4">
                 <div class="row">
                   <div class="image-wrapper">

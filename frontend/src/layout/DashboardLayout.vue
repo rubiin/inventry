@@ -10,7 +10,7 @@
           :link="{
             name: 'Dashboard',
             icon: 'ni ni-tv-2 text-primary',
-            path: '/dashboard',
+            path: '/',
           }"
         />
 
@@ -23,16 +23,16 @@
         />
         <sidebar-item
           :link="{
-            name: 'Maps',
+            name: 'Bills',
             icon: 'ni ni-pin-3 text-orange',
-            path: '/maps',
+            path: '/bills',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'User Profile',
+            name: 'Sales',
             icon: 'ni ni-single-02 text-yellow',
-            path: '/profile',
+            path: '/sales',
           }"
         />
         <sidebar-item

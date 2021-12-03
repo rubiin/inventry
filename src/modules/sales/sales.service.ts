@@ -1,10 +1,11 @@
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ListQueryBaseDto } from 'src/common/dto';
 import { Sales } from 'src/entities/sales';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
@@ -16,15 +17,36 @@ export class SalesService {
     private readonly salesRepository: EntityRepository<Sales>,
   ) {}
 
-  async create(dto: CreateSaleDto) {
-    const newProduct = this.salesRepository.create(dto);
-    await this.salesRepository.persistAndFlush(newProduct);
+  async create(dto: CreateSaleDto,image:string) {
 
-    return newProduct;
+    const newSales = this.salesRepository.create({ ...dto, image });
+    await this.salesRepository.persistAndFlush(newSales);
+
+    return newSales;
   }
 
-  async findAll() {
-    return await this.salesRepository.findAll();
+  async findAll(listQuery: ListQueryBaseDto) {
+    const { limit, search, page } = listQuery;
+
+    const offset = limit * (page - 1);
+
+    let product: Sales[], total: number;
+
+    if (search) {
+      [product, total] = await this.salesRepository.findAndCount(
+        { id: +search },
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
+    } else {
+      [product, total] = await this.salesRepository.findAndCount(
+        {},
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
+    }
+
+    const pages = Math.ceil(total / limit);
+
+    return { pages, total, product };
   }
 
   async getOne(id: number) {
@@ -39,11 +61,16 @@ export class SalesService {
     return this.getOne(id);
   }
 
-  async update(id: number, dto: UpdateSaleDto) {
-    const sales = await this.getOne(id);
-    wrap(sales).assign(dto);
-    await this.salesRepository.flush();
-    return sales;
+  async update(id: number, dto: UpdateSaleDto,image: string) {
+ 
+      const sales = await this.getOne(id);
+      let data: any = dto;
+      if (image) {
+        data = { ...dto, image };
+      }
+      wrap(sales).assign(data);
+      await this.salesRepository.flush();
+      return sales;
   }
 
   async remove(id: number) {

@@ -74,13 +74,13 @@
       <div class="row">
         <div class="col">
           <projects-table
-            title="Products"
-            addText="Add Product"
+            title="Sales"
+            addText="Add Sales"
             :tableData="products"
-            @add="addProduct"
-            @edit="editProduct($event)"
-            @remove="deleteProduct($event)"
-            @view="viewProduct($event)"
+            @add="addSale"
+            @edit="editSale($event)"
+            @remove="deleteSale($event)"
+            @view="viewSale($event)"
           ></projects-table>
         </div>
       </div>
@@ -121,35 +121,35 @@ export default {
     },
   },
   methods: {
-    async addProduct() {
+    async addSale() {
       this.$router.push({
-        name: 'product-detail',
+        name: 'sale-detail',
         query: {
           mode: 'create',
         },
       });
     },
 
-    editProduct(id) {
+    editSale(id) {
       this.$router.push({
-        name: 'product-detail',
+        name: 'sale-detail',
         query: {
           mode: 'update',
           id,
         },
       });
     },
-    viewProduct(id) {
+    viewSale(id) {
       this.$router.push({
-        name: 'product-detail',
+        name: 'sale-detail',
         query: {
           mode: 'view',
           id,
         },
       });
     },
-    async deleteProduct() {},
-    async getAllProducts(limit = this.limit, page = this.pageNumber) {
+    async deleteSale() {},
+    async getAllSales(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
@@ -181,14 +181,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getAllProducts();
+    await this.getAllSales();
   },
   watch: {
     pageNumber(val) {
-      this.getAllProducts(this.limit, val);
+      this.getAllSales(this.limit, val);
     },
     limit(val) {
-      this.getAllProducts(val, this.pageNumber);
+      this.getAllSales(val, this.pageNumber);
     },
   },
 };

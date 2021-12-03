@@ -11,7 +11,7 @@
           </h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm" @click="addData">{{
+          <base-button type="primary" size="sm" @clicked="addData">{{
             addText
           }}</base-button>
         </div>
@@ -42,7 +42,6 @@
                 <img
                   alt="Image placeholder"
                   :src="IMAGE_URL + row.item.image"
-                  style="max-width: 100%; height: auto"
                 />
               </a>
               <div class="media-body">

@@ -20,6 +20,7 @@ export default {
       axios
         .patch('/product/' + data.id, data.data, data.config)
         .then((res) => {
+          commit('UPDATE_PRODUCTS', res.data);
           return resolve(res);
         })
         .catch((err) => {
@@ -33,6 +34,7 @@ export default {
       axios
         .post('/product/', data.data, data.config)
         .then((res) => {
+          commit('ADD_PRODUCTS', res.data);
           return resolve(res);
         })
         .catch((err) => {

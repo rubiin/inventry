@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="text-center">
-              <base-button type="primary" class="my-4" @click="signUp"
+              <base-button type="primary" class="my-4" @clicked="signUp"
                 >Create account</base-button
               >
             </div>

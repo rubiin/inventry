@@ -4,7 +4,6 @@ import actions from './moduleUserActions';
 import getters from './moduleUserGetters';
 
 export default {
-  isRegistered: false,
   namespaced: true,
   state: state,
   mutations: mutations,
