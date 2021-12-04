@@ -7,9 +7,7 @@
   >
     <form
       class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
-    >
-   
-    </form>
+    ></form>
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0">

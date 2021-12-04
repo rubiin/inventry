@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import moduleUser from './modules/user/moduleUser';
 import moduleProduct from './modules/products/moduleProduct';
 import moduleSales from './modules/sales/moduleSale';
+import moduleFirm from './modules/firm/moduleFirm';
 import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
@@ -9,6 +10,7 @@ export default createStore({
     user: moduleUser,
     sales: moduleSales,
     products: moduleProduct,
+    firm: moduleFirm,
   },
   plugins: [createPersistedState()],
 });

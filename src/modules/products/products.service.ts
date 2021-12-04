@@ -81,6 +81,7 @@ export class ProductsService {
   }
 
   async remove(id: number) {
+    await this.getOne(id);
     return this.productRepository.nativeDelete({ id });
   }
 }

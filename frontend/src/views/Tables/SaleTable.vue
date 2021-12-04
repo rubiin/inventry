@@ -27,6 +27,7 @@
         :data="tableData"
       >
         <template v-slot:columns>
+          <th>S.N.</th>
           <th>Product</th>
           <th>Price</th>
           <th>Quantity</th>
@@ -37,6 +38,7 @@
         </template>
 
         <template v-slot:default="row">
+          <td>{{ row.item.id }}</td>
           <td>
             {{ getId(row.item.product) }}
           </td>
@@ -86,7 +88,7 @@
 import moment from 'moment';
 
 export default {
-  name: 'projects-table',
+  name: 'sale-table',
   props: {
     type: {
       type: String,

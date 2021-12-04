@@ -3,7 +3,11 @@ import { IsString, MaxLength, IsOptional, IsEmail } from 'class-validator';
 export class CreateFirmDto {
   @IsString()
   @MaxLength(255)
-  name: string;
+  supplierName: string;
+
+  @IsString()
+  @MaxLength(255)
+  productName: string;
 
   @IsString()
   @MaxLength(255)

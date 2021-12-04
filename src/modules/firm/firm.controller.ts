@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { FirmService } from './firm.service';
 import { CreateFirmDto } from './dto/create-firm.dto';
 import { UpdateFirmDto } from './dto/update-firm.dto';
+import { ListQueryBaseDto } from 'src/common/dto';
+import { paginate } from 'src/utils/helpers';
 
 @Controller('firm')
 export class FirmController {
@@ -21,22 +24,32 @@ export class FirmController {
   }
 
   @Get()
-  findAll() {
-    return this.firmService.findAll();
+  async findAll(@Query() listQuery: ListQueryBaseDto) {
+    const { pages, total, product } = await this.firmService.findAll(listQuery);
+    return {
+      message: 'Firm',
+      ...paginate(pages, listQuery.page, total, product),
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.firmService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const data = await this.firmService.findOne(+id);
+
+    return { message: 'Firm details', data };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFirmDto: UpdateFirmDto) {
-    return this.firmService.update(+id, updateFirmDto);
+  async update(@Param('id') id: string, @Body() updateFirmDto: UpdateFirmDto) {
+    const data = await this.firmService.update(+id, updateFirmDto);
+
+    return { message: 'Firm', data };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.firmService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const data = await this.firmService.remove(+id);
+
+    return { message: 'Firm', data };
   }
 }

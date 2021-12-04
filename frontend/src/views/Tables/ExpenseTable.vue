@@ -28,34 +28,26 @@
       >
         <template v-slot:columns>
           <th>S.N.</th>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
+          <th>Supplier name</th>
+          <th>Product name</th>
+          <th>Address</th>
+          <th>Mobile</th>
+          <th>Email</th>
           <th>Created</th>
           <th></th>
         </template>
 
         <template v-slot:default="row">
           <td>{{ row.item.id }}</td>
-          <th scope="row">
-            <div class="media align-items-center">
-              <a href="#" class="avatar rounded-circle mr-3">
-                <img
-                  alt="Image placeholder"
-                  :src="IMAGE_URL + row.item.image"
-                />
-              </a>
-              <div class="media-body">
-                <span class="name mb-0 text-sm">{{ row.item.name }}</span>
-              </div>
-            </div>
-          </th>
-
-          <td class="budget">
-            {{ row.item.price }}
+           <td>{{ row.item.supplierName }}</td>
+          <td>
+            {{ row.item.productName }}
           </td>
 
-          <td>{{ row.item.quantity }}</td>
+         
+          <td>{{ row.item.address }}</td>
+          <td>{{ row.item.phone }}</td>
+          <td>{{ row.item.email }}</td>
 
           <td>
             {{ formatDate(row.item.createdAt) }}
@@ -93,7 +85,7 @@
 <script>
 import moment from 'moment';
 export default {
-  name: 'stock-table',
+  name: 'firm-table',
   props: {
     type: {
       type: String,

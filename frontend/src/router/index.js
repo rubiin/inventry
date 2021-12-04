@@ -14,6 +14,9 @@ import StockDetail from '../views/StockDetail.vue';
 import Sale from '../views/Sales.vue';
 import SaleDetail from '../views/SaleDetail.vue';
 
+import Firm from '../views/Firm.vue';
+import FirmDetail from '../views/FirmDetail.vue';
+
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -55,6 +58,14 @@ const routes = [
         },
       },
       {
+        path: '/stock',
+        name: 'stocks',
+        components: { default: Stock },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: '/stock-detail',
         name: 'stock-detail',
         components: { default: StockDetail },
@@ -63,13 +74,22 @@ const routes = [
         },
       },
       {
-        path: '/stock',
-        name: 'stocks',
-        components: { default: Stock },
+        path: '/firm',
+        name: 'firm',
+        components: { default: Firm },
         meta: {
           requiresAuth: true,
         },
       },
+      {
+        path: '/firm-detail',
+        name: 'firm-detail',
+        components: { default: FirmDetail },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+
       {
         path: '/sales',
         name: 'sales',

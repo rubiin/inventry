@@ -24,14 +24,22 @@
         <sidebar-item
           :link="{
             name: 'Bills',
-            icon: 'ni ni-pin-3 text-orange',
+            icon: 'ni ni-money-coins text-green',
             path: '/bills',
+          }"
+        />
+
+        <sidebar-item
+          :link="{
+            name: 'Firms',
+            icon: 'ni ni-shop text-black',
+            path: '/firm',
           }"
         />
         <sidebar-item
           :link="{
             name: 'Sales',
-            icon: 'ni ni-single-02 text-yellow',
+            icon: 'ni ni-cart text-yellow',
             path: '/sales',
           }"
         />
