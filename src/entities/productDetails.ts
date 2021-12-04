@@ -16,9 +16,6 @@ export class ProductDetail extends BaseEntity {
   name: string;
 
   @Property()
-  quantity: number;
-
-  @Property()
   price: number;
 
   @OneToOne(() => Product, (product) => product.productDetail, {

@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { paginate } from 'src/utils/helpers';
+import { ListQueryBaseDto } from 'src/common/dto';
 
 @Controller('expense')
 export class ExpenseController {
@@ -21,22 +24,37 @@ export class ExpenseController {
   }
 
   @Get()
-  findAll() {
-    return this.expenseService.findAll();
+  async findAll(@Query() listQuery: ListQueryBaseDto) {
+    const { pages, total, product } = await this.expenseService.findAll(
+      listQuery,
+    );
+    return {
+      message: 'Expense',
+      ...paginate(pages, listQuery.page, total, product),
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.expenseService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const data = await this.expenseService.findOne(+id);
+
+    return { message: 'Expense details', data };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
-    return this.expenseService.update(+id, updateExpenseDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateExpenseDto: UpdateExpenseDto,
+  ) {
+    const data = await this.expenseService.update(+id, updateExpenseDto);
+
+    return { message: 'Expense', data };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.expenseService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const data = await this.expenseService.remove(+id);
+
+    return { message: 'Expense', data };
   }
 }

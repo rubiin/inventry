@@ -1,13 +1,14 @@
 import { Expenses } from 'src/entities/expenses';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ListQueryBaseDto } from 'src/common/dto';
 
 @Injectable()
 export class ExpenseService {
@@ -23,8 +24,28 @@ export class ExpenseService {
     return newExpense;
   }
 
-  async findAll() {
-    return await this.expenseRepository.findAll();
+  async findAll(listQuery: ListQueryBaseDto) {
+    const { limit, search, page } = listQuery;
+
+    const offset = limit * (page - 1);
+
+    let product: Expenses[], total: number;
+
+    if (search) {
+      [product, total] = await this.expenseRepository.findAndCount(
+        { type: search },
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
+    } else {
+      [product, total] = await this.expenseRepository.findAndCount(
+        {},
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
+    }
+
+    const pages = Math.ceil(total / limit);
+
+    return { pages, total, product };
   }
 
   async getOne(id: number) {
@@ -47,6 +68,7 @@ export class ExpenseService {
   }
 
   async remove(id: number) {
+    await this.getOne(id);
     return this.expenseRepository.nativeDelete({ id });
   }
 }

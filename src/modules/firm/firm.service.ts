@@ -1,6 +1,10 @@
 import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ListQueryBaseDto } from 'src/common/dto';
 import { Firm } from 'src/entities/firm';
 import { CreateFirmDto } from './dto/create-firm.dto';
@@ -14,11 +18,11 @@ export class FirmService {
   ) {}
 
   async create(dto: CreateFirmDto) {
-     const firmExist = await this.firmRepository.findOne({
-       supplierName: dto.supplierName,
-     });
-     if (firmExist)
-       throw new BadRequestException('Firm with name already exists');
+    const firmExist = await this.firmRepository.findOne({
+      supplierName: dto.supplierName,
+    });
+    if (firmExist)
+      throw new BadRequestException('Firm with name already exists');
 
     const newFirm = this.firmRepository.create(dto);
     await this.firmRepository.persistAndFlush(newFirm);
