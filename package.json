@@ -27,9 +27,10 @@
   },
   "dependencies": {
     "@mikro-orm/cli": "^4.5.9",
-    "@mikro-orm/core": "^4.5.9",
-    "@mikro-orm/nestjs": "^4.3.1",
     "@mikro-orm/postgresql": "^4.5.9",
+    "@mikro-orm/core": "^4.5.9",
+    "@mikro-orm/mysql": "^4.5.9",
+    "@mikro-orm/nestjs": "^4.3.1",
     "@mikro-orm/reflection": "^4.5.9",
     "@mikro-orm/sql-highlighter": "^1.0.1",
     "@nestjs/common": "^8.2.3",

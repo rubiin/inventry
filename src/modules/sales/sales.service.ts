@@ -1,6 +1,8 @@
 import {
+  EntityManager,
   EntityRepository,
   LoadStrategy,
+  MikroORM,
   QueryOrder,
   wrap,
 } from '@mikro-orm/core';
@@ -23,19 +25,20 @@ export class SalesService {
     private readonly productRepository: EntityRepository<Product>,
     @InjectRepository(Sales)
     private readonly salesRepository: EntityRepository<Sales>,
+    private readonly orm: MikroORM,
+    private readonly em: EntityManager,
   ) {}
 
   async create(dto: CreateSaleDto) {
-    await this.salesRepository.nativeDelete({ id: { $gt: 0 } });
-    const product = await this.getOneProduct(+dto.product);
-    const newSales = new Sales(
-      dto.quantity,
-      dto.price,
-      product,
-      dto.discount,
-      dto.vat,
-    );
-    await this.salesRepository.persistAndFlush(newSales);
+    const product = await this.getOneProduct(dto.product);
+    const newSales = this.salesRepository.create(dto);
+
+    await this.orm.em.transactional(async (em) => {
+      product.quantity -= dto.quantity;
+
+      em.persist(product);
+      await em.persistAndFlush(newSales);
+    });
 
     return newSales;
   }

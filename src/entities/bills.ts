@@ -1,6 +1,12 @@
-import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
-import { Firm } from './firm';
+import { Sales } from './sales';
 
 @Entity()
 export class Bill extends BaseEntity {
@@ -9,6 +15,9 @@ export class Bill extends BaseEntity {
   })
   image: string;
 
-  @ManyToOne(() => Firm)
-  firm: Firm;
+  @OneToOne(() => Sales, (sale) => sale.bill, {
+    owner: true,
+    orphanRemoval: true,
+  })
+  sale!: Sales;
 }

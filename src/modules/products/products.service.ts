@@ -38,23 +38,23 @@ export class ProductsService {
 
     const offset = limit * (page - 1);
 
-    let product: Product[],total: number;
+    let product: Product[], total: number;
 
-    if(search) {
-   [product, total] = await this.productRepository.findAndCount(
-     { name: search },
-     { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
-   );
+    if (search) {
+      [product, total] = await this.productRepository.findAndCount(
+        { name: search },
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
+    } else {
+      [product, total] = await this.productRepository.findAndCount(
+        {},
+        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+      );
     }
-    else{
-         [product, total] = await this.productRepository.findAndCount({},
-           { limit, offset, orderBy: { createdAt: QueryOrder.ASC }},
-         );
-    }
-  
+
     const pages = Math.ceil(total / limit);
 
-    return {pages, total, product};
+    return { pages, total, product };
   }
 
   async getOne(id: number) {
@@ -69,11 +69,11 @@ export class ProductsService {
     return this.getOne(id);
   }
 
-  async update(id: number, dto: UpdateProductDto,image:string) {
+  async update(id: number, dto: UpdateProductDto, image: string) {
     const product = await this.getOne(id);
-    let data : any= dto;
-    if(image){
-      data = {...dto,image}
+    let data: any = dto;
+    if (image) {
+      data = { ...dto, image };
     }
     wrap(product).assign(data);
     await this.productRepository.flush();

@@ -24,8 +24,6 @@ export const editFileName = (req, file, callback) => {
   callback(null, `${name}-${randomName}${fileExtName}`);
 };
 
-
-
 export function hasNext(
   page: number,
   totalPages: number,

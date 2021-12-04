@@ -8,8 +8,8 @@ import Dashboard from '../views/Dashboard.vue';
 import Icons from '../views/Icons.vue';
 import Maps from '../views/Maps.vue';
 import Profile from '../views/UserProfile.vue';
-import Product from '../views/Product.vue';
-import ProductDetail from '../views/ProductDetail.vue';
+import Stock from '../views/Stock.vue';
+import StockDetail from '../views/StockDetail.vue';
 
 import Sale from '../views/Sales.vue';
 import SaleDetail from '../views/SaleDetail.vue';
@@ -55,17 +55,17 @@ const routes = [
         },
       },
       {
-        path: '/product-detail',
-        name: 'product-detail',
-        components: { default: ProductDetail },
+        path: '/stock-detail',
+        name: 'stock-detail',
+        components: { default: StockDetail },
         meta: {
           requiresAuth: true,
         },
       },
       {
-        path: '/products',
-        name: 'products',
-        components: { default: Product },
+        path: '/stock',
+        name: 'stocks',
+        components: { default: Stock },
         meta: {
           requiresAuth: true,
         },

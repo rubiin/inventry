@@ -28,7 +28,6 @@
       >
         <template v-slot:columns>
           <th>Product</th>
-          <th>Description</th>
           <th>Price</th>
           <th>Quantity</th>
           <th>Created</th>
@@ -50,9 +49,6 @@
             </div>
           </th>
 
-          <td>
-            {{ row.item.description }}
-          </td>
           <td class="budget">
             {{ row.item.price }}
           </td>

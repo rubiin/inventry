@@ -45,7 +45,7 @@ export default {
   createSales({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .post('/sales/', data.data)
+        .post('/sales/', data)
         .then((res) => {
           commit('ADD_SALES', res.data);
           return resolve(res);
@@ -56,10 +56,10 @@ export default {
     });
   },
 
-  deleteSales({ commit }, data) {
+  deleteSales({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios
-        .delete('/sales/', data.id)
+        .delete('/sales/' + id)
         .then((res) => {
           return resolve(res);
         })

@@ -1,5 +1,6 @@
-import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { Entity, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
+import { Bill } from './bills';
 import { Product } from './products';
 
 @Entity()
@@ -13,23 +14,15 @@ export class Sales extends BaseEntity {
   @Property({ nullable: true })
   discount?: number;
 
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, { onDelete: 'cascade' })
   product: Product;
+
+  @OneToOne(() => Bill, (bill) => bill.sale, {
+    onDelete: 'cascade',
+    nullable: true,
+  })
+  bill!: Bill;
 
   @Property({ nullable: true })
   vat?: number;
-  constructor(
-    quantity: number,
-    price: number,
-    product: Product,
-    discount?: number,
-    vat?: number,
-  ) {
-    super();
-    this.quantity = quantity;
-    this.price = price;
-    this.discount = discount;
-    this.vat = vat;
-    this.product = product;
-  }
 }

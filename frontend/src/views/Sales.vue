@@ -79,7 +79,7 @@
             :tableData="sales"
             @add="addSale"
             @edit="editSale($event)"
-            @remove="deleteSale($event)"
+            @remove="handlDelete($event)"
             @view="viewSale($event)"
           ></projects-table>
         </div>
@@ -101,6 +101,7 @@
 <script>
 import ProjectsTable from './Tables/SaleTable';
 import { mapState } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'tables',
@@ -148,7 +149,48 @@ export default {
         },
       });
     },
-    async deleteSale() {},
+    async handleDelete(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#5e72e4',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'No',
+      }).then(async (result) => {
+        if (result.value) {
+          await this.deleteSale(id);
+        }
+      });
+    },
+    async deleteSale(id) {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      await this.$store
+        .dispatch('products/deleteSales', id)
+        .then(async (res) => {
+          loader.hide();
+
+          this.$notify({
+            title: 'Info',
+            text: 'Deleted sales',
+            type: 'success',
+          });
+
+          await this.getAllSales();
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            title: 'Error',
+            text: 'Cannot delete sales',
+            type: 'error',
+          });
+        });
+    },
     async getAllSales(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,

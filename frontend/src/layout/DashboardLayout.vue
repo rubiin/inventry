@@ -2,8 +2,8 @@
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <side-bar
       :background-color="sidebarBackground"
-      short-title="Argon"
-      title="Argon"
+      short-title="Dashboard"
+      title="Dashboard"
     >
       <template v-slot:links>
         <sidebar-item
@@ -37,9 +37,9 @@
         />
         <sidebar-item
           :link="{
-            name: 'Products',
+            name: 'Stocks',
             icon: 'ni ni-bullet-list-67 text-red',
-            path: '/products',
+            path: '/stock',
           }"
         />
       </template>

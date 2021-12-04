@@ -6,7 +6,7 @@ import { Sales } from 'src/entities/sales';
 import { Product } from 'src/entities/products';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Sales,Product])],
+  imports: [MikroOrmModule.forFeature([Sales, Product])],
   controllers: [SalesController],
   providers: [SalesService],
 })

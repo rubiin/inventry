@@ -38,7 +38,7 @@
 
         <template v-slot:default="row">
           <td>
-            {{ row.item.product.id }}
+            {{ getId(row.item.product) }}
           </td>
 
           <td class="budget">
@@ -46,8 +46,8 @@
           </td>
 
           <td>{{ row.item.quantity }}</td>
-          <td>{{ row.item.vat }}</td>
           <td>{{ row.item.discount }}</td>
+          <td>{{ row.item.vat }}</td>
 
           <td>
             {{ formatDate(row.item.createdAt) }}
@@ -84,6 +84,7 @@
 </template>
 <script>
 import moment from 'moment';
+
 export default {
   name: 'projects-table',
   props: {
@@ -105,6 +106,10 @@ export default {
     };
   },
   methods: {
+    getId(val) {
+      console.log(val);
+      return val;
+    },
     formatDate(date) {
       return moment(date).format('DD-MMM-YYYY');
     },

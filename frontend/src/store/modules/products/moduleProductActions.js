@@ -43,10 +43,10 @@ export default {
     });
   },
 
-  deleteProduct({ commit }, data) {
+  deleteProduct({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios
-        .delete('/product/', data.id)
+        .delete('/product/' + id)
         .then((res) => {
           return resolve(res);
         })

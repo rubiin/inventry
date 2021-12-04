@@ -18,18 +18,15 @@ import { diskStorage } from 'multer';
 import { imageFileFilter, editFileName, paginate } from 'src/utils/helpers';
 import { ListQueryBaseDto } from 'src/common/dto';
 
-
 @Controller('sales')
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post()
-  async create(
-    @Body() createSaleDto: CreateSaleDto
-  ) {
-    const data= await this.salesService.create(createSaleDto);
+  async create(@Body() createSaleDto: CreateSaleDto) {
+    const data = await this.salesService.create(createSaleDto);
 
-     return { message: 'Sale has been created!', data };
+    return { message: 'Sale has been created!', data };
   }
 
   @Get()
@@ -51,10 +48,7 @@ export class SalesController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateSaleDto: UpdateSaleDto
-  ) {
+  async update(@Param('id') id: string, @Body() updateSaleDto: UpdateSaleDto) {
     const data = await this.salesService.update(+id, updateSaleDto);
 
     return { message: 'Sales', data };
@@ -64,6 +58,6 @@ export class SalesController {
   async remove(@Param('id') id: string) {
     const data = await this.salesService.remove(+id);
 
-     return { message: 'Products', data };
+    return { message: 'Products', data };
   }
 }

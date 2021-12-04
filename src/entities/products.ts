@@ -2,10 +2,12 @@ import {
   Collection,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
+import { ProductDetail } from './productDetails';
 import { Sales } from './sales';
 
 @Entity()
@@ -14,11 +16,6 @@ export class Product extends BaseEntity {
     length: 50,
   })
   name: string;
-
-  @Property({
-    length: 250,
-  })
-  description: string;
 
   @Property({
     length: 250,
@@ -35,4 +32,11 @@ export class Product extends BaseEntity {
     orphanRemoval: true,
   })
   sales = new Collection<Sales>(this);
+
+  @OneToOne(() => ProductDetail, (productDetail) => productDetail.product, {
+    owner: true,
+    orphanRemoval: true,
+    nullable: true,
+  })
+  productDetail: ProductDetail;
 }

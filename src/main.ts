@@ -11,13 +11,6 @@ async function bootstrap() {
   app.use(helmet());
   app.use(compression());
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      transform: true,
-    }),
-  );
-
   await app.listen(config.port);
 }
 bootstrap();

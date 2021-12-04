@@ -21,13 +21,18 @@ export class Firm extends BaseEntity {
   address: string;
 
   @Property({
+    length: 100,
+  })
+  supplierName: string;
+
+  @Property({
+    length: 100,
+  })
+  productName: string;
+
+  @Property({
     length: 60,
     unique: true,
   })
   email: string;
-
-  @OneToMany(() => Bill, (bill) => bill.firm, {
-    orphanRemoval: true,
-  })
-  sales = new Collection<Bill>(this);
 }

@@ -25,7 +25,7 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Product information</h6>
+              <h6 class="heading-small text-muted mb-4">Stock information</h6>
               <div class="pl-lg-4">
                 <div class="row">
                   <div class="image-wrapper">
@@ -89,19 +89,6 @@
                       v-model="model.quantity"
                     />
                   </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <base-input alternative="" label="Product description">
-                        <textarea
-                          rows="4"
-                          v-model="model.description"
-                          :disabled="viewOnly"
-                          class="form-control form-control-alternative"
-                          placeholder="A few words about the item ..."
-                        ></textarea>
-                      </base-input>
-                    </div>
-                  </div>
                 </div>
 
                 <div class="row flex justify-end">
@@ -130,7 +117,6 @@ export default {
     return {
       model: {
         name: '',
-        description: '',
         price: 0,
         quantity: 0,
         image: '',
@@ -149,7 +135,6 @@ export default {
       let formData = new FormData();
       formData.append('image', this.image);
       formData.append('name', this.model.name);
-      formData.append('description', this.model.description);
       formData.append('price', this.model.price);
       formData.append('quantity', this.model.quantity);
 
@@ -169,19 +154,19 @@ export default {
 
           this.$notify({
             title: 'Info',
-            text: 'Added product',
+            text: 'Added stock',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'products',
+            name: 'stocks',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Cannot create product',
+            text: 'Cannot create stock',
             type: 'error',
           });
         });
@@ -193,7 +178,6 @@ export default {
       let formData = new FormData();
       formData.append('image', this.image);
       formData.append('name', this.model.name);
-      formData.append('description', this.model.description);
       formData.append('price', this.model.price);
       formData.append('quantity', this.model.quantity);
 
@@ -214,19 +198,19 @@ export default {
 
           this.$notify({
             title: 'Info',
-            text: 'Updated product',
+            text: 'Updated stock',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'products',
+            name: 'stocks',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Product cannot be updated',
+            text: 'Stock cannot be updated',
             type: 'danger',
           });
           console.log(err);
