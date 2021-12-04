@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ListQueryBaseDto } from 'src/common/dto';
+import { Product } from 'src/entities/products';
 import { Sales } from 'src/entities/sales';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
@@ -13,16 +14,32 @@ import { UpdateSaleDto } from './dto/update-sale.dto';
 @Injectable()
 export class SalesService {
   constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: EntityRepository<Product>,
     @InjectRepository(Sales)
     private readonly salesRepository: EntityRepository<Sales>,
   ) {}
 
-  async create(dto: CreateSaleDto,image:string) {
-
-    const newSales = this.salesRepository.create({ ...dto, image });
+  async create(dto: CreateSaleDto) {
+    await this.salesRepository.nativeDelete({id: {$gt: 0}});
+    const product = await this.getOneProduct(+dto.product);
+    const newSales = new Sales(
+      dto.quantity,
+      dto.price,
+      product,
+      dto.discount,
+      dto.vat,
+    );
     await this.salesRepository.persistAndFlush(newSales);
 
     return newSales;
+  }
+  async getOneProduct(id: number) {
+    const product = await this.productRepository.findOne({ id });
+
+    if (!product) throw new NotFoundException('Product does not exists');
+
+    return product;
   }
 
   async findAll(listQuery: ListQueryBaseDto) {
@@ -35,12 +52,22 @@ export class SalesService {
     if (search) {
       [product, total] = await this.salesRepository.findAndCount(
         { id: +search },
-        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+        {
+          populate: ['product'],
+          limit,
+          offset,
+          orderBy: { createdAt: QueryOrder.ASC },
+        },
       );
     } else {
       [product, total] = await this.salesRepository.findAndCount(
         {},
-        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+        {
+          populate: ['product'],
+          limit,
+          offset,
+          orderBy: { createdAt: QueryOrder.ASC },
+        },
       );
     }
 
@@ -58,19 +85,16 @@ export class SalesService {
   }
 
   findOne(id: number) {
+ 
+ return this.salesRepository.findOne({ id });
     return this.getOne(id);
   }
 
-  async update(id: number, dto: UpdateSaleDto,image: string) {
- 
-      const sales = await this.getOne(id);
-      let data: any = dto;
-      if (image) {
-        data = { ...dto, image };
-      }
-      wrap(sales).assign(data);
-      await this.salesRepository.flush();
-      return sales;
+  async update(id: number, dto: UpdateSaleDto) {
+    const sales = await this.getOne(id);
+    wrap(sales).assign(dto);
+    await this.salesRepository.flush();
+    return sales;
   }
 
   async remove(id: number) {

@@ -1,20 +1,20 @@
-import { IsDefined, IsNumber, IsOptional } from 'class-validator';
+import {  IsNumberString, IsOptional } from 'class-validator';
 
 export class CreateSaleDto {
-  @IsNumber()
+  @IsNumberString()
   price: number;
 
-  @IsNumber()
+  @IsNumberString()
   quantity: number;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   discount: number;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   vat: number;
 
-  @IsDefined()
-  product: Record<string, any>;
+  @IsNumberString()
+  product: number;
 }

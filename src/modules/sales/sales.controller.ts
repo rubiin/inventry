@@ -24,20 +24,10 @@ export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './files',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    }),
-  )
   async create(
-    @Body() createSaleDto: CreateSaleDto,
-    @UploadedFile() image: Express.Multer.File,
+    @Body() createSaleDto: CreateSaleDto
   ) {
-    const data= await this.salesService.create(createSaleDto, image.filename);
+    const data= await this.salesService.create(createSaleDto);
 
      return { message: 'Sale has been created!', data };
   }
@@ -61,21 +51,11 @@ export class SalesController {
   }
 
   @Patch(':id')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './files',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    }),
-  )
   async update(
     @Param('id') id: string,
-    @Body() updateSaleDto: UpdateSaleDto,
-    @UploadedFile() image: Express.Multer.File,
+    @Body() updateSaleDto: UpdateSaleDto
   ) {
-    const data = await this.salesService.update(+id, updateSaleDto,image?.filename);
+    const data = await this.salesService.update(+id, updateSaleDto);
 
     return { message: 'Sales', data };
   }

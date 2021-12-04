@@ -18,4 +18,18 @@ export class Sales extends BaseEntity {
 
   @Property({ nullable: true })
   vat?: number;
+  constructor(
+    quantity: number,
+    price: number,
+    product: Product,
+    discount?: number,
+    vat?: number,
+  ) {
+    super();
+    this.quantity = quantity;
+    this.price = price;
+    this.discount = discount;
+    this.vat = vat;
+    this.product = product;
+  }
 }

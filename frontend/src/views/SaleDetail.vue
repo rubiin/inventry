@@ -28,53 +28,24 @@
               <h6 class="heading-small text-muted mb-4">Sale information</h6>
               <div class="pl-lg-4">
                 <div class="row">
-                  <div class="image-wrapper">
-                    <div class="personal-image">
-                      <label class="label">
-                        <input
-                          type="file"
-                          @change="uploadFile($event)"
-                          :disabled="viewOnly"
-                        />
-                        <figure class="personal-figure">
-                          <img
-                            :src="
-                              model.image === ''
-                                ? 'https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png'
-                                : IMAGE_URL + model.image
-                            "
-                            class="personal-avatar"
-                            alt="avatar"
-                          />
-                          <figcaption class="personal-figcaption">
-                            <img
-                              src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"
-                            />
-                          </figcaption>
-                        </figure>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Product name"
-                      placeholder="Product name"
-                      :disabled="viewOnly"
-                      input-classes="form-control-alternative"
-                      v-model="model.name"
-                    />
-                  </div>
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
                       label="Price"
+                      placeholder="Price"
+                      :disabled="viewOnly"
+                      input-classes="form-control-alternative"
+                      v-model="model.price"
+                    />
+                  </div>
+                  <div class="col-lg-6">
+                    <base-input
+                      alternative=""
+                      label="Quantity"
                       :disabled="viewOnly"
                       placeholder="100"
                       input-classes="form-control-alternative"
-                      v-model="model.price"
+                      v-model="model.quantity"
                     />
                   </div>
                 </div>
@@ -82,24 +53,23 @@
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
-                      label="Quantity"
-                      placeholder="Quantity"
+                      label="Vat"
+                      placeholder="Vat"
                       :disabled="viewOnly"
                       input-classes="form-control-alternative"
-                      v-model="model.quantity"
+                      v-model="model.vat"
                     />
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <base-input alternative="" label="Product description">
-                        <textarea
-                          rows="4"
-                          v-model="model.description"
-                          :disabled="viewOnly"
-                          class="form-control form-control-alternative"
-                          placeholder="A few words about the item ..."
-                        ></textarea>
-                      </base-input>
+                      <base-input
+                        alternative=""
+                        label="Discount"
+                        placeholder="Discount"
+                        :disabled="viewOnly"
+                        input-classes="form-control-alternative"
+                        v-model="model.discount"
+                      />
                     </div>
                   </div>
                 </div>
@@ -129,11 +99,11 @@ export default {
   data() {
     return {
       model: {
-        name: '',
-        description: '',
+        vat: 0,
+        discount: 0,
         price: 0,
         quantity: 0,
-        image: '',
+        product: '',
       },
       mode: 'view',
       image: null,
@@ -142,25 +112,10 @@ export default {
     };
   },
   methods: {
-    async addProduct() {
+    async addSale() {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
-      let formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('name', this.model.name);
-      formData.append('description', this.model.description);
-      formData.append('price', this.model.price);
-      formData.append('quantity', this.model.quantity);
-
-      const payload = {
-        config: {
-          header: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-        data: formData,
-      };
 
       await this.$store
         .dispatch('products/createProduct', payload)
@@ -186,26 +141,10 @@ export default {
           });
         });
     },
-    async updateProduct() {
+    async updateSale() {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
-      let formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('name', this.model.name);
-      formData.append('description', this.model.description);
-      formData.append('price', this.model.price);
-      formData.append('quantity', this.model.quantity);
-
-      const payload = {
-        config: {
-          header: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-        data: formData,
-        id: this.$route.query.id,
-      };
 
       await this.$store
         .dispatch('products/updateAProduct', payload)
