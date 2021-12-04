@@ -9,6 +9,6 @@ export class Bill extends BaseEntity {
   })
   image: string;
 
-  @ManyToOne(() => Firm, { eager: true })
+  @ManyToOne(() => Firm)
   firm: Firm;
 }

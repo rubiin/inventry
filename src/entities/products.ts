@@ -32,7 +32,6 @@ export class Product extends BaseEntity {
   price: number;
 
   @OneToMany(() => Sales, (sale) => sale.product, {
-    eager: true,
     orphanRemoval: true,
   })
   sales = new Collection<Sales>(this);

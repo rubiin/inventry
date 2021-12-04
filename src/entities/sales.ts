@@ -13,7 +13,7 @@ export class Sales extends BaseEntity {
   @Property({ nullable: true })
   discount?: number;
 
-  @ManyToOne(() => Product, { eager: true })
+  @ManyToOne(() => Product)
   product: Product;
 
   @Property({ nullable: true })

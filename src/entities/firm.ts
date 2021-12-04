@@ -27,7 +27,6 @@ export class Firm extends BaseEntity {
   email: string;
 
   @OneToMany(() => Bill, (bill) => bill.firm, {
-    eager: true,
     orphanRemoval: true,
   })
   sales = new Collection<Bill>(this);

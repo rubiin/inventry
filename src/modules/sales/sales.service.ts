@@ -1,4 +1,9 @@
-import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
+import {
+  EntityRepository,
+  LoadStrategy,
+  QueryOrder,
+  wrap,
+} from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
@@ -21,7 +26,7 @@ export class SalesService {
   ) {}
 
   async create(dto: CreateSaleDto) {
-    await this.salesRepository.nativeDelete({id: {$gt: 0}});
+    await this.salesRepository.nativeDelete({ id: { $gt: 0 } });
     const product = await this.getOneProduct(+dto.product);
     const newSales = new Sales(
       dto.quantity,
@@ -77,7 +82,7 @@ export class SalesService {
   }
 
   async getOne(id: number) {
-    const user = await this.salesRepository.findOne({ id });
+    const user = await this.salesRepository.findOne(id, ['product']);
 
     if (!user) throw new NotFoundException('Sales does not exists');
 
@@ -85,8 +90,6 @@ export class SalesService {
   }
 
   findOne(id: number) {
- 
- return this.salesRepository.findOne({ id });
     return this.getOne(id);
   }
 
