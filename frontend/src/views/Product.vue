@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-import ProjectsTable from './Tables/ProjectsTable';
+import ProjectsTable from './Tables/ProductTable';
 import { mapState } from 'vuex';
 
 export default {

@@ -76,7 +76,7 @@
           <projects-table
             title="Sales"
             addText="Add Sales"
-            :tableData="products"
+            :tableData="sales"
             @add="addSale"
             @edit="editSale($event)"
             @remove="deleteSale($event)"
@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-import ProjectsTable from './Tables/ProjectsTable';
+import ProjectsTable from './Tables/SaleTable';
 import { mapState } from 'vuex';
 
 export default {
@@ -115,7 +115,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('products', ['products']),
+    ...mapState('sales', ['sales']),
     totalPage: function () {
       return Math.ceil(this.totalData / this.limit);
     },
@@ -156,7 +156,7 @@ export default {
 
       const params = `?page=${page}&limit=${limit}`;
       await this.$store
-        .dispatch('products/getAllProducts', params)
+        .dispatch('sales/getAllSales', params)
         .then((res) => {
           loader.hide();
 

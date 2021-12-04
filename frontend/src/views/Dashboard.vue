@@ -16,7 +16,7 @@
               </span>
               <span class="text-nowrap">Since last month</span>
             </template>
-          </stats-card> 
+          </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
           <stats-card

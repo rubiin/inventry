@@ -30,8 +30,8 @@
           <th>Product</th>
           <th>Description</th>
           <th>Price</th>
-          <th>Qunatity</th>
-          <th>Updated</th>
+          <th>Quantity</th>
+          <th>Created</th>
           <th></th>
         </template>
 

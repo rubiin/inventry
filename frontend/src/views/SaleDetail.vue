@@ -118,7 +118,7 @@ export default {
       });
 
       await this.$store
-        .dispatch('products/createProduct', payload)
+        .dispatch('products/createProduct', this.model)
         .then((res) => {
           loader.hide();
 
@@ -147,7 +147,7 @@ export default {
       });
 
       await this.$store
-        .dispatch('products/updateAProduct', payload)
+        .dispatch('products/updateAProduct', this.model)
         .then((res) => {
           loader.hide();
 
