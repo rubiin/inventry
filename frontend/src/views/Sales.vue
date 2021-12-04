@@ -162,7 +162,7 @@ export default {
 
           this.$notify({
             title: 'Info',
-            text: 'Fetched Products',
+            text: 'Fetched Sales',
             type: 'success',
           });
 
@@ -173,7 +173,7 @@ export default {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Products cannot be fetched',
+            text: 'Sales cannot be fetched',
             type: 'danger',
           });
           console.log(err);

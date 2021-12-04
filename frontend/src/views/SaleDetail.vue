@@ -93,9 +93,8 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 export default {
-  name: 'user-profile',
+  name: 'sale-detail',
   data() {
     return {
       model: {
@@ -108,7 +107,6 @@ export default {
       mode: 'view',
       image: null,
       viewOnly: false,
-      IMAGE_URL: 'http://localhost:8000/',
     };
   },
   methods: {
@@ -118,25 +116,52 @@ export default {
       });
 
       await this.$store
-        .dispatch('products/createProduct', this.model)
+        .dispatch('sales/createSales', this.model)
         .then((res) => {
           loader.hide();
 
           this.$notify({
             title: 'Info',
-            text: 'Added product',
+            text: 'Added sale',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'products',
+            name: 'sales',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Cannot create product',
+            text: 'Cannot create sale',
+            type: 'error',
+          });
+        });
+    },
+    async getSale(id) {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      await this.$store
+        .dispatch('sales/getSales', id)
+        .then((res) => {
+          loader.hide();
+
+          this.model = res.data.data;
+
+          this.$notify({
+            title: 'Info',
+            text: 'Fetched sale',
+            type: 'success',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            title: 'Error',
+            text: 'Cannot create sale',
             type: 'error',
           });
         });
@@ -147,42 +172,37 @@ export default {
       });
 
       await this.$store
-        .dispatch('products/updateAProduct', this.model)
+        .dispatch('sales/updateSales', this.model)
         .then((res) => {
           loader.hide();
 
           this.$notify({
             title: 'Info',
-            text: 'Updated product',
+            text: 'Updated sale',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'products',
+            name: 'sales',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Product cannot be updated',
+            text: 'Sale cannot be updated',
             type: 'danger',
           });
           console.log(err);
         });
     },
-    uploadFile(event) {
-      this.image = event.target.files[0];
-    },
   },
-  computed: {
-    ...mapGetters('products', ['getProductById']),
-  },
+  computed: {},
   mounted() {
     this.mode = this.$route.query.mode;
 
     if (this.$route.query.id) {
-      this.model = this.getProductById(this.$route.query.id);
+      this.model = this.getSale(this.$route.query.id);
     }
     if (this.mode) {
       this.viewOnly = this.mode === 'view' ? true : false;
@@ -190,55 +210,3 @@ export default {
   },
 };
 </script>
-<style>
-.personal-image {
-  text-align: center;
-}
-.personal-image input[type='file'] {
-  display: none;
-}
-.personal-figure {
-  position: relative;
-  width: 120px;
-  height: 120px;
-}
-.personal-avatar {
-  cursor: pointer;
-  width: 120px;
-  height: 120px;
-  box-sizing: border-box;
-  border-radius: 100%;
-  border: 2px solid transparent;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
-  transition: all ease-in-out 0.3s;
-}
-.personal-avatar:hover {
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-}
-.personal-figcaption {
-  cursor: pointer;
-  position: absolute;
-  top: 0px;
-  width: inherit;
-  height: inherit;
-  border-radius: 100%;
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0);
-  transition: all ease-in-out 0.3s;
-}
-.personal-figcaption:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.personal-figcaption > img {
-  width: inherit;
-  height: inherit;
-  transform: scale(0.29);
-}
-
-.image-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-</style>

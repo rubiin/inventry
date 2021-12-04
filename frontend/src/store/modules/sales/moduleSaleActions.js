@@ -15,7 +15,20 @@ export default {
     });
   },
 
-  updateASales({ commit }, data) {
+  getSales({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('/sales/' + params)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err.response);
+        });
+    });
+  },
+
+  updateSales({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
         .patch('/sales/' + data.id, data.data)
