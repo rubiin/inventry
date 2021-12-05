@@ -39,12 +39,11 @@
 
         <template v-slot:default="row">
           <td>{{ row.item.id }}</td>
-           <td>{{ row.item.supplierName }}</td>
+          <td>{{ row.item.supplierName }}</td>
           <td>
             {{ row.item.productName }}
           </td>
 
-         
           <td>{{ row.item.address }}</td>
           <td>{{ row.item.phone }}</td>
           <td>{{ row.item.email }}</td>

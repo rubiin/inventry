@@ -28,26 +28,17 @@
       >
         <template v-slot:columns>
           <th>S.N.</th>
-          <th>Supplier name</th>
-          <th>Product name</th>
-          <th>Address</th>
-          <th>Mobile</th>
-          <th>Email</th>
+          <th>Expenditure</th>
+          <th>Amount</th>
           <th>Created</th>
           <th></th>
         </template>
 
         <template v-slot:default="row">
           <td>{{ row.item.id }}</td>
-           <td>{{ row.item.supplierName }}</td>
-          <td>
-            {{ row.item.productName }}
-          </td>
+          <td>{{ row.item.type }}</td>
 
-         
-          <td>{{ row.item.address }}</td>
-          <td>{{ row.item.phone }}</td>
-          <td>{{ row.item.email }}</td>
+          <td>{{ row.item.cost }}</td>
 
           <td>
             {{ formatDate(row.item.createdAt) }}

@@ -20,6 +20,9 @@ import FirmDetail from '../views/FirmDetail.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
+import Expense from '../views/Expense.vue';
+import ExpenseDetail from '../views/ExpenseDetail.vue';
+
 const routes = [
   {
     path: '/',
@@ -102,6 +105,22 @@ const routes = [
         path: '/sale-detail',
         name: 'sale-detail',
         components: { default: SaleDetail },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/expense',
+        name: 'expense',
+        components: { default: Expense },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/expense-detail',
+        name: 'expense-detail',
+        components: { default: ExpenseDetail },
         meta: {
           requiresAuth: true,
         },

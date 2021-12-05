@@ -25,66 +25,28 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Sale information</h6>
+              <h6 class="heading-small text-muted mb-4">Expense information</h6>
               <div class="pl-lg-4">
                 <div class="row">
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
-                      label="Supplier name"
-                      placeholder="Supplier name"
+                      label="Expenditure"
+                      placeholder="Expenditure"
                       :disabled="viewOnly"
                       input-classes="form-control-alternative"
-                      v-model="model.supplierName"
+                      v-model="model.type"
                     />
                   </div>
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
-                      label="Product name"
+                      label="Amount"
                       :disabled="viewOnly"
-                      placeholder="Product name"
+                      placeholder="Amount"
                       input-classes="form-control-alternative"
-                      v-model="model.productName"
+                      v-model="model.cost"
                     />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Address"
-                      placeholder="Address"
-                      :disabled="viewOnly"
-                      input-classes="form-control-alternative"
-                      v-model="model.address"
-                    />
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <base-input
-                        alternative=""
-                        label="Mobile"
-                        placeholder="Mobile"
-                        :disabled="viewOnly"
-                        input-classes="form-control-alternative"
-                        v-model="model.phone"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="pl-3">
-                  <div class="row">
-                    <div class="form-group">
-                      <base-input
-                        alternative=""
-                        label="Email"
-                        placeholder="Email"
-                        :disabled="viewOnly"
-                        input-classes="form-control-alternative"
-                        v-model="model.email"
-                      />
-                    </div>
                   </div>
                 </div>
 
@@ -112,11 +74,8 @@ export default {
   data() {
     return {
       model: {
-        productName: '',
-        supplierName: '',
-        phone: '',
-        email: '',
-        address: '',
+        type: '',
+        cost: '',
       },
       mode: 'view',
       value: 1,
@@ -130,25 +89,25 @@ export default {
       });
 
       await this.$store
-        .dispatch('firm/createFirm', this.model)
+        .dispatch('expense/createExpense', this.model)
         .then((res) => {
           loader.hide();
 
           this.$notify({
             title: 'Info',
-            text: 'Added firm',
+            text: 'Added expense',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'firm',
+            name: 'expense',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Cannot create firm',
+            text: 'Cannot create expense',
             type: 'error',
           });
         });
@@ -158,7 +117,7 @@ export default {
         container: this.$refs.formContainer,
       });
       await this.$store
-        .dispatch('firm/updateFirm', {
+        .dispatch('expense/updateExpense', {
           data: this.model,
           id: this.$route.query.id,
         })
@@ -169,19 +128,19 @@ export default {
 
           this.$notify({
             title: 'Info',
-            text: 'Updated firm',
+            text: 'Updated expense',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'firm',
+            name: 'expense',
           });
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Sale cannot be updated',
+            text: 'Expense cannot be updated',
             type: 'danger',
           });
           console.log(err);
@@ -189,13 +148,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('firm', ['getFirmById']),
+    ...mapGetters('expense', ['getExpenseById']),
   },
   async beforeMount() {
     this.mode = this.$route.query.mode;
 
     if (this.$route.query.id) {
-      this.model = await this.getFirmById(this.$route.query.id);
+      this.model = await this.getExpenseById(this.$route.query.id);
     }
     if (this.mode) {
       this.viewOnly = this.mode === 'view' ? true : false;
@@ -203,4 +162,3 @@ export default {
   },
 };
 </script>
-

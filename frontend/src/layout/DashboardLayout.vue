@@ -50,6 +50,13 @@
             path: '/stock',
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Expenses',
+            icon: 'ni ni-cart text-grey',
+            path: '/expense',
+          }"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

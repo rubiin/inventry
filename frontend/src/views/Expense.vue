@@ -74,13 +74,13 @@
       <div class="row">
         <div class="col">
           <projects-table
-            title="Firms"
-            addText="Add Firm"
-            :tableData="firms"
-            @add="addFirm"
-            @edit="editFirm($event)"
+            title="Expenses"
+            addText="Add Expense"
+            :tableData="expenses"
+            @add="addExpense"
+            @edit="editExpense($event)"
             @remove="handleDelete($event)"
-            @view="viewFirm($event)"
+            @view="viewExpense($event)"
           ></projects-table>
         </div>
       </div>
@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-import ProjectsTable from './Tables/FirmTable';
+import ProjectsTable from './Tables/ExpenseTable';
 import { mapState } from 'vuex';
 import Swal from 'sweetalert2';
 
@@ -116,33 +116,33 @@ export default {
     };
   },
   computed: {
-    ...mapState('firm', ['firms']),
+    ...mapState('expense', ['expenses']),
     totalPage: function () {
       return Math.ceil(this.totalData / this.limit);
     },
   },
   methods: {
-    async addFirm() {
+    async addExpense() {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'expense-detail',
         query: {
           mode: 'create',
         },
       });
     },
 
-    editFirm(id) {
+    editExpense(id) {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'expense-detail',
         query: {
           mode: 'update',
           id,
         },
       });
     },
-    viewFirm(id) {
+    viewExpense(id) {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'expense-detail',
         query: {
           mode: 'view',
           id,
@@ -160,51 +160,51 @@ export default {
         cancelButtonText: 'No',
       }).then(async (result) => {
         if (result.value) {
-          await this.deleteFirm(id);
+          await this.deleteExpense(id);
         }
       });
     },
-    async deleteFirm(id) {
+    async deleteExpense(id) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
       await this.$store
-        .dispatch('firm/deleteFirm', id)
+        .dispatch('expense/deleteExpense', id)
         .then(async (res) => {
           loader.hide();
 
           this.$notify({
             title: 'Info',
-            text: 'Deleted firm',
+            text: 'Deleted expense',
             type: 'success',
           });
 
-          await this.getAllFirm();
+          await this.getAllExpense();
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Cannot delete firm',
+            text: 'Cannot delete expense',
             type: 'error',
           });
         });
     },
-    async getAllFirm(limit = this.limit, page = this.pageNumber) {
+    async getAllExpense(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
       const params = `?page=${page}&limit=${limit}`;
       await this.$store
-        .dispatch('firm/getAllFirms', params)
+        .dispatch('expense/getAllExpenses', params)
         .then((res) => {
           loader.hide();
 
           this.$notify({
             title: 'Info',
-            text: 'Fetched firm',
+            text: 'Fetched expense',
             type: 'success',
           });
 
@@ -215,7 +215,7 @@ export default {
           loader.hide();
           this.$notify({
             title: 'Error',
-            text: 'Firms cannot be fetched',
+            text: 'Expense cannot be fetched',
             type: 'danger',
           });
           console.log(err);
@@ -223,14 +223,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getAllFirm();
+    await this.getAllExpense();
   },
   watch: {
     pageNumber(val) {
-      this.getAllFirm(this.limit, val);
+      this.getAllExpense(this.limit, val);
     },
     limit(val) {
-      this.getAllFirm(val, this.pageNumber);
+      this.getAllExpense(val, this.pageNumber);
     },
   },
 };
