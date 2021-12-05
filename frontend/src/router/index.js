@@ -5,8 +5,6 @@ import DashboardLayout from '@/layout/DashboardLayout';
 import AuthLayout from '@/layout/AuthLayout';
 
 import Dashboard from '../views/Dashboard.vue';
-import Icons from '../views/Icons.vue';
-import Maps from '../views/Maps.vue';
 import Profile from '../views/UserProfile.vue';
 import Stock from '../views/Stock.vue';
 import StockDetail from '../views/StockDetail.vue';
@@ -35,22 +33,6 @@ const routes = [
         path: '/',
         name: 'dashboard',
         components: { default: Dashboard },
-        meta: {
-          requiresAuth: true,
-        },
-      },
-      {
-        path: '/icons',
-        name: 'icons',
-        components: { default: Icons },
-        meta: {
-          requiresAuth: true,
-        },
-      },
-      {
-        path: '/maps',
-        name: 'maps',
-        components: { default: Maps },
         meta: {
           requiresAuth: true,
         },
