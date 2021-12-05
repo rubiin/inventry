@@ -17,7 +17,7 @@ import StatsCard from '../components/StatsCard';
 import TabPane from '../components/Tabs/TabPane';
 import Tabs from '../components/Tabs/Tabs';
 
-import { ElTooltip, ElPopover } from 'element-plus';
+import { ElTooltip, ElPopover, ElNotification, ElAvatar } from 'element-plus';
 
 const GlobalComponents = {
   install(app) {
@@ -41,6 +41,8 @@ const GlobalComponents = {
     app.component('tabs', Tabs);
     app.use(ElTooltip);
     app.use(ElPopover);
+    app.use(ElNotification);
+    app.use(ElAvatar);
   },
 };
 

@@ -41,7 +41,7 @@
                             :src="
                               model.image === ''
                                 ? 'https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png'
-                                : IMAGE_URL + model.image
+                                :  model.image
                             "
                             class="personal-avatar"
                             alt="avatar"
@@ -222,6 +222,7 @@ export default {
     },
     uploadFile(event) {
       this.image = event.target.files[0];
+      this.model.image = URL.createObjectURL(this.image);
     },
   },
   computed: {
@@ -232,6 +233,8 @@ export default {
 
     if (this.$route.query.id) {
       this.model = this.getProductById(this.$route.query.id);
+      this.image = this.model.image;
+      this.model.image = this.IMAGE_URL + this.model.image;
     }
     if (this.mode) {
       this.viewOnly = this.mode === 'view' ? true : false;

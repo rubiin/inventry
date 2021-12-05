@@ -8,13 +8,6 @@
       <template v-slot:links>
         <sidebar-item
           :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
-            path: '/icons',
-          }"
-        />
-        <sidebar-item
-          :link="{
             name: 'Bills',
             icon: 'ni ni-money-coins text-green',
             path: '/bills',
@@ -24,7 +17,7 @@
         <sidebar-item
           :link="{
             name: 'Firms',
-            icon: 'ni ni-shop text-black',
+            icon: 'el-icon-s-shop text-lg text-blue',
             path: '/firm',
           }"
         />
@@ -53,7 +46,7 @@
         <sidebar-item
           :link="{
             name: 'Damaged',
-            icon: 'el-icon-s-release text-blue text-lg',
+            icon: 'el-icon-s-release text-red text-lg',
             path: '/damages',
           }"
         />

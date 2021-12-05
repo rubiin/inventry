@@ -39,12 +39,13 @@
           <td>{{ row.item.id }}</td>
           <th scope="row">
             <div class="media align-items-center">
-              <a href="#" class="avatar rounded-circle mr-3">
-                <img
-                  alt="Image placeholder"
-                  :src="IMAGE_URL + row.item.image"
-                />
-              </a>
+              <el-avatar
+                :size="60"
+                :src="IMAGE_URL + row.item.image"
+                class="mr-2"
+              >
+              </el-avatar>
+
               <div class="media-body">
                 <span class="name mb-0 text-sm">{{ row.item.name }}</span>
               </div>
@@ -129,6 +130,9 @@ export default {
 
     editData(val) {
       this.$emit('edit', val);
+    },
+    errorHandler() {
+      return true;
     },
   },
 };
