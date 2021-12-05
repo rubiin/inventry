@@ -94,8 +94,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Added expense',
+            message: 'Added expense',
             type: 'success',
           });
 
@@ -106,8 +107,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot create expense',
+            message: 'Cannot create expense',
             type: 'error',
           });
         });
@@ -127,8 +129,9 @@ export default {
           console.log(this.model);
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Updated expense',
+            message: 'Updated expense',
             type: 'success',
           });
 
@@ -139,8 +142,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Expense cannot be updated',
+            message: 'Expense cannot be updated',
             type: 'danger',
           });
           console.log(err);

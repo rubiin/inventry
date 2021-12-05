@@ -8,14 +8,6 @@
       <template v-slot:links>
         <sidebar-item
           :link="{
-            name: 'Dashboard',
-            icon: 'ni ni-tv-2 text-primary',
-            path: '/',
-          }"
-        />
-
-        <sidebar-item
-          :link="{
             name: 'Icons',
             icon: 'ni ni-planet text-blue',
             path: '/icons',
@@ -53,8 +45,16 @@
         <sidebar-item
           :link="{
             name: 'Expenses',
-            icon: 'ni ni-cart text-grey',
+            icon: 'el-icon-s-finance text-grey text-lg',
             path: '/expense',
+          }"
+        />
+
+        <sidebar-item
+          :link="{
+            name: 'Damaged',
+            icon: 'el-icon-s-release text-blue text-lg',
+            path: '/damages',
           }"
         />
       </template>
@@ -65,23 +65,20 @@
       <div @click="toggleSidebar">
         <!-- your content here -->
         <router-view></router-view>
-        <content-footer v-if="!$route.meta.hideFooter"></content-footer>
       </div>
     </div>
   </div>
 </template>
 <script>
 import DashboardNavbar from './DashboardNavbar.vue';
-import ContentFooter from './ContentFooter.vue';
 
 export default {
   components: {
     DashboardNavbar,
-    ContentFooter,
   },
   data() {
     return {
-      sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
+      sidebarBackground: 'orange', //vue|blue|orange|green|red|primary
     };
   },
   methods: {

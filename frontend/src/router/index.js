@@ -23,6 +23,9 @@ import Register from '../views/Register.vue';
 import Expense from '../views/Expense.vue';
 import ExpenseDetail from '../views/ExpenseDetail.vue';
 
+import Damage from '../views/DamageProduct.vue';
+import DamageProductDetail from '../views/DamageProductDetail.vue';
+
 const routes = [
   {
     path: '/',
@@ -121,6 +124,22 @@ const routes = [
         path: '/expense-detail',
         name: 'expense-detail',
         components: { default: ExpenseDetail },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/damages',
+        name: 'damages',
+        components: { default: Damage },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/damage-detail',
+        name: 'damage-detail',
+        components: { default: DamageProductDetail },
         meta: {
           requiresAuth: true,
         },

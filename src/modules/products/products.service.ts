@@ -42,7 +42,7 @@ export class ProductsService {
 
     if (search) {
       [product, total] = await this.productRepository.findAndCount(
-        { name: search },
+        { id: +search },
         { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
       );
     } else {

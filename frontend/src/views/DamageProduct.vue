@@ -74,13 +74,12 @@
       <div class="row">
         <div class="col">
           <projects-table
-            title="Firms"
-            addText="Add Firm"
-            :tableData="firms"
-            @add="addFirm"
-            @edit="editFirm($event)"
+            title="Damaged products"
+            addText="Add damage product"
+            :tableData="damaged"
+            @add="addDamage"
             @remove="handleDelete($event)"
-            @view="viewFirm($event)"
+            @view="viewDamage($event)"
           ></projects-table>
         </div>
       </div>
@@ -99,7 +98,7 @@
   </div>
 </template>
 <script>
-import ProjectsTable from './Tables/FirmTable';
+import ProjectsTable from './Tables/DamageProductTable';
 import { mapState } from 'vuex';
 import Swal from 'sweetalert2';
 
@@ -116,33 +115,33 @@ export default {
     };
   },
   computed: {
-    ...mapState('firm', ['firms']),
+    ...mapState('damages', ['damaged']),
     totalPage: function () {
       return Math.ceil(this.totalData / this.limit);
     },
   },
   methods: {
-    async addFirm() {
+    async addDamage() {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'damage-detail',
         query: {
           mode: 'create',
         },
       });
     },
 
-    editFirm(id) {
+    editDamage(id) {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'damage-detail',
         query: {
           mode: 'update',
           id,
         },
       });
     },
-    viewFirm(id) {
+    viewDamage(id) {
       this.$router.push({
-        name: 'firm-detail',
+        name: 'damage-detail',
         query: {
           mode: 'view',
           id,
@@ -160,48 +159,56 @@ export default {
         cancelButtonmessage: 'No',
       }).then(async (result) => {
         if (result.value) {
-          await this.deleteFirm(id);
+          await this.deleteDamage(id);
         }
       });
     },
-    async deleteFirm(id) {
+    async deleteDamage(id) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
       await this.$store
-        .dispatch('firm/deleteFirm', id)
+        .dispatch('damages/deleteDamage', id)
         .then(async (res) => {
           loader.hide();
 
           this.$notify({
             position: 'bottom-right',
             title: 'Info',
-            message: 'Deleted firm',
+            message: 'Deleted damaged products',
             type: 'success',
           });
 
-          await this.getAllFirm();
+          await this.getAllDamages();
         })
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            message: 'Cannot delete firm',
+            message: 'Cannot delete damaged products',
             type: 'error',
           });
         });
     },
-    async getAllFirm(limit = this.limit, page = this.pageNumber) {
+    async getAllDamages(limit = this.limit, page = this.pageNumber) {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
       const params = `?page=${page}&limit=${limit}`;
       await this.$store
-        .dispatch('firm/getAllFirms', params)
+        .dispatch('damages/getAllDamages', params)
         .then((res) => {
           loader.hide();
+
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Fetched damaged products',
+            type: 'success',
+          });
 
           this.totalData = res.data.total_items;
           console.log(res);
@@ -209,8 +216,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            message: 'Firms cannot be fetched',
+            message: 'Damaged  products cannot be fetched',
             type: 'danger',
           });
           console.log(err);
@@ -218,14 +226,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getAllFirm();
+    await this.getAllDamages();
   },
   watch: {
     pageNumber(val) {
-      this.getAllFirm(this.limit, val);
+      this.getAllDamages(this.limit, val);
     },
     limit(val) {
-      this.getAllFirm(val, this.pageNumber);
+      this.getAllDamages(val, this.pageNumber);
     },
   },
 };

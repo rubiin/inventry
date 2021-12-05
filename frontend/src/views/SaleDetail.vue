@@ -142,8 +142,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Products cannot be fetched',
+            message: 'Products cannot be fetched',
             type: 'danger',
           });
           console.log(err);
@@ -160,8 +161,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Added sale',
+            message: 'Added sale',
             type: 'success',
           });
 
@@ -172,8 +174,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot create sale',
+            message: 'Cannot create sale',
             type: 'error',
           });
         });
@@ -187,15 +190,17 @@ export default {
           this.model.product = this.model.product.id;
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Fetched sale',
+            message: 'Fetched sale',
             type: 'success',
           });
         })
         .catch((err) => {
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot create sale',
+            message: 'Cannot create sale',
             type: 'error',
           });
         });
@@ -215,8 +220,9 @@ export default {
           console.log(this.model);
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Updated sale',
+            message: 'Updated sale',
             type: 'success',
           });
 
@@ -227,8 +233,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Sale cannot be updated',
+            message: 'Sale cannot be updated',
             type: 'danger',
           });
           console.log(err);

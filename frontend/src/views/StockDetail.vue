@@ -153,8 +153,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Added stock',
+            message: 'Added stock',
             type: 'success',
           });
 
@@ -165,8 +166,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot create stock',
+            message: 'Cannot create stock',
             type: 'error',
           });
         });
@@ -197,8 +199,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Updated stock',
+            message: 'Updated stock',
             type: 'success',
           });
 
@@ -209,8 +212,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Stock cannot be updated',
+            message: 'Stock cannot be updated',
             type: 'danger',
           });
           console.log(err);

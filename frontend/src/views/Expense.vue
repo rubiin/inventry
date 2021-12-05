@@ -156,8 +156,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#5e72e4',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'No',
+        confirmButtonmessage: 'Delete',
+        cancelButtonmessage: 'No',
       }).then(async (result) => {
         if (result.value) {
           await this.deleteExpense(id);
@@ -175,8 +175,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Deleted expense',
+            message: 'Deleted expense',
             type: 'success',
           });
 
@@ -185,8 +186,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot delete expense',
+            message: 'Cannot delete expense',
             type: 'error',
           });
         });
@@ -203,8 +205,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Fetched expense',
+            message: 'Fetched expense',
             type: 'success',
           });
 
@@ -214,8 +217,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Expense cannot be fetched',
+            message: 'Expense cannot be fetched',
             type: 'danger',
           });
           console.log(err);

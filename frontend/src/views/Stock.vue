@@ -161,8 +161,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Deleted stock',
+            message: 'Deleted stock',
             type: 'success',
           });
 
@@ -171,8 +172,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot delete stock',
+            message: 'Cannot delete stock',
             type: 'error',
           });
         });
@@ -184,8 +186,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#5e72e4',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'No',
+        confirmButtonmessage: 'Delete',
+        cancelButtonmessage: 'No',
       }).then(async (result) => {
         if (result.value) {
           await this.deleteProduct(id);
@@ -204,8 +206,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Fetched Products',
+            message: 'Fetched Products',
             type: 'success',
           });
 
@@ -215,8 +218,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Products cannot be fetched',
+            message: 'Products cannot be fetched',
             type: 'danger',
           });
           console.log(err);

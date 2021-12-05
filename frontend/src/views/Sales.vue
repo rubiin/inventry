@@ -156,8 +156,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#5e72e4',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'No',
+        confirmButtonmessage: 'Delete',
+        cancelButtonmessage: 'No',
       }).then(async (result) => {
         if (result.value) {
           await this.deleteSale(id);
@@ -175,8 +175,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Deleted sales',
+            message: 'Deleted sales',
             type: 'success',
           });
 
@@ -185,8 +186,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Cannot delete sales',
+            message: 'Cannot delete sales',
             type: 'error',
           });
         });
@@ -203,8 +205,9 @@ export default {
           loader.hide();
 
           this.$notify({
+            position: 'bottom-right',
             title: 'Info',
-            text: 'Fetched Sales',
+            message: 'Fetched Sales',
             type: 'success',
           });
 
@@ -214,8 +217,9 @@ export default {
         .catch((err) => {
           loader.hide();
           this.$notify({
+            position: 'bottom-right',
             title: 'Error',
-            text: 'Sales cannot be fetched',
+            message: 'Sales cannot be fetched',
             type: 'danger',
           });
           console.log(err);

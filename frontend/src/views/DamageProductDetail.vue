@@ -25,19 +25,23 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Sale information</h6>
+              <h6 class="heading-small text-muted mb-4">Damage information</h6>
               <div class="pl-lg-4">
                 <div class="row">
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Supplier name"
-                      placeholder="Supplier name"
+                  <div class="col-lg-6 flex flex-col">
+                    <label class="form-control-label"> Stock id </label>
+                    <el-autocomplete
+                      v-model="value"
                       :disabled="viewOnly"
-                      input-classes="form-control-alternative"
-                      v-model="model.supplierName"
+                      :fetch-suggestions="getAllProducts"
+                      placeholder="Please input stock id"
+                      @select="handleSelect"
+                      class="mt-1 autocomplete"
+                      maxlength="4"
+                      show-word-limit
                     />
                   </div>
+
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
@@ -45,46 +49,21 @@
                       :disabled="viewOnly"
                       placeholder="Product name"
                       input-classes="form-control-alternative"
-                      v-model="model.productName"
+                      v-model="model.name"
                     />
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
-                      label="Address"
-                      placeholder="Address"
+                      label="Quantity"
                       :disabled="viewOnly"
+                      placeholder="uantity"
                       input-classes="form-control-alternative"
-                      v-model="model.address"
+                      v-model="model.quantity"
                     />
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <base-input
-                        alternative=""
-                        label="Mobile"
-                        placeholder="Mobile"
-                        :disabled="viewOnly"
-                        input-classes="form-control-alternative"
-                        v-model="model.phone"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="pl-3">
-                  <div class="row">
-                    <div class="form-group">
-                      <base-input
-                        alternative=""
-                        label="Email"
-                        placeholder="Email"
-                        :disabled="viewOnly"
-                        input-classes="form-control-alternative"
-                        v-model="model.email"
-                      />
-                    </div>
                   </div>
                 </div>
 
@@ -92,7 +71,7 @@
                   <base-button
                     type="primary"
                     v-if="!viewOnly"
-                    @clicked="mode === 'create' ? addFirm() : updateFirm()"
+                    @clicked="addDamage()"
                     >{{ mode === 'create' ? 'Create' : 'Update' }}</base-button
                   >
                 </div>
@@ -107,99 +86,86 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  name: 'firm-detail',
+  name: 'sale-detail',
   components: {},
   data() {
     return {
       model: {
-        productName: '',
-        supplierName: '',
-        phone: '',
-        email: '',
-        address: '',
+        quantity: 0,
+        product: '',
       },
       mode: 'view',
-      value: 1,
+      value: '',
       viewOnly: false,
     };
   },
   methods: {
-    async addFirm() {
-      let loader = this.$loading.show({
-        container: this.$refs.formContainer,
-      });
-
-      await this.$store
-        .dispatch('firm/createFirm', this.model)
-        .then((res) => {
-          loader.hide();
-
-          this.$notify({
-            position: 'bottom-right',
-            title: 'Info',
-            message: 'Added firm',
-            type: 'success',
-          });
-
-          this.$router.push({
-            name: 'firm',
-          });
-        })
-        .catch((err) => {
-          loader.hide();
-          this.$notify({
-            position: 'bottom-right',
-            title: 'Error',
-            message: 'Cannot create firm',
-            type: 'error',
-          });
-        });
+    handleSelect(item) {
+      this.model.product = item.value;
     },
-    async updateFirm() {
-      let loader = this.$loading.show({
-        container: this.$refs.formContainer,
-      });
+    async getAllProducts(query, cb) {
+      const params = `?page=1&limit=10&search=${query}`;
       await this.$store
-        .dispatch('firm/updateFirm', {
-          data: this.model,
-          id: this.$route.query.id,
-        })
+        .dispatch('products/getAllProducts', params)
         .then((res) => {
-          loader.hide();
+          this.loading = false;
 
-          console.log(this.model);
-
-          this.$notify({
-            position: 'bottom-right',
-            title: 'Info',
-            message: 'Updated firm',
-            type: 'success',
+          this.stocks = res.data.items.map((item) => {
+            return { value: item.id, link: item.id };
           });
-
-          this.$router.push({
-            name: 'firm',
-          });
+          return cb(this.stocks);
         })
         .catch((err) => {
-          loader.hide();
           this.$notify({
             position: 'bottom-right',
             title: 'Error',
-            message: 'Sale cannot be updated',
+            message: 'Products cannot be fetched',
             type: 'danger',
           });
           console.log(err);
         });
     },
+    async addDamage() {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      await this.$store
+        .dispatch('damages/createDamage', this.model)
+        .then((res) => {
+          loader.hide();
+
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Added sale',
+            type: 'success',
+          });
+
+          this.$router.push({
+            name: 'damages',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Error',
+            message: 'Cannot create sale',
+            type: 'error',
+          });
+        });
+    },
   },
   computed: {
-    ...mapGetters('firm', ['getFirmById']),
+    ...mapGetters('damages', ['getDamagesById']),
   },
   async beforeMount() {
     this.mode = this.$route.query.mode;
 
     if (this.$route.query.id) {
-      this.model = await this.getFirmById(this.$route.query.id);
+      this.model = await this.getDamagesById(this.$route.query.id);
+      this.value = this.model.product.id;
     }
     if (this.mode) {
       this.viewOnly = this.mode === 'view' ? true : false;
@@ -207,3 +173,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.autocomplete {
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+</style>

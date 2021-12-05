@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ProductDetailModule } from './modules/product-detail/product-detail.module';
+import { DamagedProductModule } from './modules/damaged-product/damaged-product.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ProductDetailModule } from './modules/product-detail/product-detail.mod
     ProductsModule,
     AuthModule,
     ProductDetailModule,
+    DamagedProductModule
   ],
   controllers: [AppController],
   providers: [AppService],
