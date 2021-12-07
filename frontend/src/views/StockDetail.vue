@@ -41,7 +41,7 @@
                             :src="
                               model.image === ''
                                 ? 'https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png'
-                                :  model.image
+                                : model.image
                             "
                             class="personal-avatar"
                             alt="avatar"
@@ -117,8 +117,8 @@ export default {
     return {
       model: {
         name: '',
-        price: 0,
-        quantity: 0,
+        price: '',
+        quantity: '',
         image: '',
       },
       mode: 'view',

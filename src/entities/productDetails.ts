@@ -1,6 +1,7 @@
 import {
   Collection,
   Entity,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryKey,
@@ -18,7 +19,9 @@ export class ProductDetail extends BaseEntity {
   @Property()
   price: number;
 
-  @OneToOne(() => Product, (product) => product.productDetail, {
+  @ManyToOne({
+    entity: () => Product,
+    onUpdateIntegrity: 'cascade',
     onDelete: 'cascade',
   })
   product!: Product;

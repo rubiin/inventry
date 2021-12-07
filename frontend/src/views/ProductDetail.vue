@@ -25,7 +25,7 @@
             </template>
 
             <form>
-              <h6 class="heading-small text-muted mb-4">Damage information</h6>
+              <h6 class="heading-small text-muted mb-4">Product information</h6>
               <div class="pl-lg-4">
                 <div class="row">
                   <div class="col-lg-6 flex flex-col">
@@ -58,11 +58,11 @@
                   <div class="col-lg-6">
                     <base-input
                       alternative=""
-                      label="Quantity"
+                      label="Price"
                       :disabled="viewOnly"
-                      placeholder="uantity"
+                      placeholder="Price"
                       input-classes="form-control-alternative"
-                      v-model="model.quantity"
+                      v-model="model.price"
                     />
                   </div>
                 </div>
@@ -71,7 +71,7 @@
                   <base-button
                     type="primary"
                     v-if="!viewOnly"
-                    @clicked="addDamage()"
+                    @clicked="mode === 'create' ? addProductDetail():updateProductDetail() "
                     >{{ mode === 'create' ? 'Create' : 'Update' }}</base-button
                   >
                 </div>
@@ -91,7 +91,8 @@ export default {
   data() {
     return {
       model: {
-        quantity: '',
+        name: '',
+        price: '',
         product: '',
       },
       mode: 'view',
@@ -125,25 +126,27 @@ export default {
           console.log(err);
         });
     },
-    async addDamage() {
+    async addProductDetail() {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
+    
+
       await this.$store
-        .dispatch('damages/createDamage', this.model)
+        .dispatch('productDetail/createProductDetail', this.model)
         .then((res) => {
           loader.hide();
 
           this.$notify({
             position: 'bottom-right',
             title: 'Info',
-            message: 'Added sale',
+            message: 'Added product detail',
             type: 'success',
           });
 
           this.$router.push({
-            name: 'damages',
+            name: 'products',
           });
         })
         .catch((err) => {
@@ -151,20 +154,51 @@ export default {
           this.$notify({
             position: 'bottom-right',
             title: 'Error',
-            message: 'Cannot create sale',
+             message: 'Cannot create product detail',
+            type: 'error',
+          });
+        });
+    },
+     async updateProductDetail() {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      await this.$store
+        .dispatch('productDetail/updateProductDetail', this.model)
+        .then((res) => {
+          loader.hide();
+
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Updated product detail',
+            type: 'success',
+          });
+
+          this.$router.push({
+            name: 'products',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Error',
+             message: 'Cannot update product detail',
             type: 'error',
           });
         });
     },
   },
   computed: {
-    ...mapGetters('damages', ['getDamagesById']),
+    ...mapGetters('productDetail', ['getproductDetailsById']),
   },
   async beforeMount() {
     this.mode = this.$route.query.mode;
 
     if (this.$route.query.id) {
-      this.model = await this.getDamagesById(this.$route.query.id);
+      this.model = await this.getproductDetailsById(this.$route.query.id);
       this.value = this.model.product.id;
     }
     if (this.mode) {

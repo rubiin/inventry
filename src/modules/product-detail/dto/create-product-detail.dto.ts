@@ -7,4 +7,7 @@ export class CreateProductDetailDto {
 
   @IsNumber()
   price: number;
+
+  @IsNumber()
+  product: number;
 }

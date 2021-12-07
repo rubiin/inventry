@@ -35,6 +35,14 @@
             path: '/stock',
           }"
         />
+
+        <sidebar-item
+          :link="{
+            name: 'Products',
+            icon: 'el-icon-s-platform text-grey text-lg',
+            path: '/products',
+          }"
+        />
         <sidebar-item
           :link="{
             name: 'Expenses',

@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
+import { Collection, Entity, ManyToMany, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
 import { Bill } from './bills';
 import { Product } from './products';
@@ -14,8 +14,8 @@ export class Sales extends BaseEntity {
   @Property({ nullable: true })
   discount?: number;
 
-  @ManyToOne(() => Product, { onDelete: 'cascade' })
-  product: Product;
+  @ManyToMany(() => Product)
+  books1 = new Collection<Product>(this);
 
   @OneToOne(() => Bill, (bill) => bill.sale, {
     onDelete: 'cascade',

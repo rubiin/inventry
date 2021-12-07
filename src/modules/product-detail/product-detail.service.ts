@@ -1,4 +1,10 @@
-import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
+import {
+  EntityManager,
+  EntityRepository,
+  MikroORM,
+  QueryOrder,
+  wrap,
+} from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
@@ -15,6 +21,8 @@ export class ProductDetailService {
   constructor(
     @InjectRepository(ProductDetail)
     private readonly productDetailRepository: EntityRepository<ProductDetail>,
+    private readonly orm: MikroORM,
+    private readonly em: EntityManager,
   ) {}
 
   async create(dto: CreateProductDetailDto) {
@@ -40,12 +48,22 @@ export class ProductDetailService {
     if (search) {
       [product, total] = await this.productDetailRepository.findAndCount(
         { name: search },
-        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+        {
+          populate: ['product'],
+          limit,
+          offset,
+          orderBy: { createdAt: QueryOrder.ASC },
+        },
       );
     } else {
       [product, total] = await this.productDetailRepository.findAndCount(
         {},
-        { limit, offset, orderBy: { createdAt: QueryOrder.ASC } },
+        {
+          populate: ['product'],
+          limit,
+          offset,
+          orderBy: { createdAt: QueryOrder.ASC },
+        },
       );
     }
 

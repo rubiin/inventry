@@ -24,6 +24,9 @@ import ExpenseDetail from '../views/ExpenseDetail.vue';
 import Damage from '../views/DamageProduct.vue';
 import DamageProductDetail from '../views/DamageProductDetail.vue';
 
+import Product from '../views/Product.vue';
+import ProductDetail from '../views/ProductDetail.vue';
+
 const routes = [
   {
     path: '/',
@@ -122,6 +125,22 @@ const routes = [
         path: '/damage-detail',
         name: 'damage-detail',
         components: { default: DamageProductDetail },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/products',
+        name: 'products',
+        components: { default: Product },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/product-detail',
+        name: 'product-detail',
+        components: { default: ProductDetail },
         meta: {
           requiresAuth: true,
         },

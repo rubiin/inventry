@@ -27,16 +27,4 @@ export class Product extends BaseEntity {
 
   @Property()
   price: number;
-
-  @OneToMany(() => Sales, (sale) => sale.product, {
-    orphanRemoval: true,
-  })
-  sales = new Collection<Sales>(this);
-
-  @OneToOne(() => ProductDetail, (productDetail) => productDetail.product, {
-    owner: true,
-    orphanRemoval: true,
-    nullable: true,
-  })
-  productDetail: ProductDetail;
 }

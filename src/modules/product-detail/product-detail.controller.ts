@@ -20,6 +20,7 @@ export class ProductDetailController {
 
   @Post()
   create(@Body() createProductDetailDto: CreateProductDetailDto) {
+    
     return this.productDetailService.create(createProductDetailDto);
   }
 
