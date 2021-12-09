@@ -60,7 +60,7 @@
                       alternative=""
                       label="Quantity"
                       :disabled="viewOnly"
-                      placeholder="uantity"
+                      placeholder="Quantity"
                       input-classes="form-control-alternative"
                       v-model="model.quantity"
                     />

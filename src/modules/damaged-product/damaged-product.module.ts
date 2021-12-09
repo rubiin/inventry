@@ -6,7 +6,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Product } from 'src/entities/products';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([DamageProduct,Product])],
+  imports: [MikroOrmModule.forFeature([DamageProduct, Product])],
   controllers: [DamagedProductController],
   providers: [DamagedProductService],
 })

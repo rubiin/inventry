@@ -1,20 +1,21 @@
-import { IsNumberString, IsOptional } from 'class-validator';
+import { IsArray, IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateSaleDto {
   @IsNumberString()
-  price: number;
+  cashReturned: number;
 
   @IsNumberString()
-  quantity: number;
-
-  @IsOptional()
-  @IsNumberString()
-  discount: number;
-
-  @IsOptional()
-  @IsNumberString()
-  vat: number;
+  total: number;
 
   @IsNumberString()
-  product: number;
+  cashReceived: number;
+
+  @IsString()
+  clientName: string;
+
+  @IsString()
+  clientAddress: string;
+
+  @IsArray()
+  items: any[];
 }

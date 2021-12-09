@@ -6,18 +6,35 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
+import { ProductDetail } from './productDetails';
+import { Product } from './products';
 import { Sales } from './sales';
 
 @Entity()
 export class Bill extends BaseEntity {
-  @Property({
-    length: 250,
-  })
-  image: string;
+  @Property()
+  quantity: number;
 
-  @OneToOne(() => Sales, (sale) => sale.bill, {
-    owner: true,
-    orphanRemoval: true,
+  @Property()
+  ratePer: string;
+
+  @Property()
+  vat: number;
+
+  @Property()
+  amount: number;
+
+  @ManyToOne({
+    entity: () => ProductDetail,
+    onUpdateIntegrity: 'cascade',
+    onDelete: 'cascade',
+  })
+  productDetail!: ProductDetail;
+
+  @ManyToOne({
+    entity: () => Sales,
+    onUpdateIntegrity: 'cascade',
+    onDelete: 'cascade',
   })
   sale!: Sales;
 }

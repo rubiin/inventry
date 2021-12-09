@@ -40,7 +40,6 @@ export class DamagedProductController {
     return { message: 'Damaged product', data };
   }
 
-
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const data = await this.damagedProductService.remove(+id);

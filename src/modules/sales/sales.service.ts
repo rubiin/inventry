@@ -13,6 +13,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ListQueryBaseDto } from 'src/common/dto';
+import { Bill } from 'src/entities/bills';
 import { Product } from 'src/entities/products';
 import { Sales } from 'src/entities/sales';
 import { CreateSaleDto } from './dto/create-sale.dto';
@@ -23,6 +24,8 @@ export class SalesService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: EntityRepository<Product>,
+    @InjectRepository(Bill)
+    private readonly billRepository: EntityRepository<Bill>,
     @InjectRepository(Sales)
     private readonly salesRepository: EntityRepository<Sales>,
     private readonly orm: MikroORM,
@@ -30,18 +33,31 @@ export class SalesService {
   ) {}
 
   async create(dto: CreateSaleDto) {
-    const product = await this.getOneProduct(dto.product);
-    const newSales = this.salesRepository.create(dto);
-
+    const sale = new Sales();
+    sale.clientName = dto.clientName;
+    sale.clientAddress = dto.clientAddress;
+    sale.cashReceived = dto.cashReceived;
+    sale.cashReturned = dto.cashReturned;
+    sale.total = dto.total;
     await this.orm.em.transactional(async (em) => {
-      product.quantity -= dto.quantity;
+      await em.persistAndFlush(sale);
 
-      em.persist(product);
-      await em.persistAndFlush(newSales);
+      const billsArray: Bill[] = dto.items.map((item) => {
+        const bill = new Bill();
+        bill.productDetail = item.id;
+        bill.quantity = item.quantity;
+        bill.ratePer = item.ratePer;
+        bill.vat = item.vat;
+        bill.amount = item.amount;
+        bill.sale = sale;
+        return bill;
+      });
+      await em.persistAndFlush(billsArray);
     });
 
-    return newSales;
+    return sale;
   }
+
   async getOneProduct(id: number) {
     const product = await this.productRepository.findOne({ id });
 

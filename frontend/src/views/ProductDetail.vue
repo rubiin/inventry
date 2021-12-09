@@ -71,7 +71,11 @@
                   <base-button
                     type="primary"
                     v-if="!viewOnly"
-                    @clicked="mode === 'create' ? addProductDetail():updateProductDetail() "
+                    @clicked="
+                      mode === 'create'
+                        ? addProductDetail()
+                        : updateProductDetail()
+                    "
                     >{{ mode === 'create' ? 'Create' : 'Update' }}</base-button
                   >
                 </div>
@@ -131,8 +135,6 @@ export default {
         container: this.$refs.formContainer,
       });
 
-    
-
       await this.$store
         .dispatch('productDetail/createProductDetail', this.model)
         .then((res) => {
@@ -154,18 +156,25 @@ export default {
           this.$notify({
             position: 'bottom-right',
             title: 'Error',
-             message: 'Cannot create product detail',
+            message: 'Cannot create product detail',
             type: 'error',
           });
         });
     },
-     async updateProductDetail() {
+    async updateProductDetail() {
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });
 
+      const payload = {
+        data: this.model,
+        id: this.$route.query.id,
+      };
+
+      payload.data.product = this.model.product.id;
+
       await this.$store
-        .dispatch('productDetail/updateProductDetail', this.model)
+        .dispatch('productDetail/updateProductDetail', payload)
         .then((res) => {
           loader.hide();
 
@@ -185,7 +194,7 @@ export default {
           this.$notify({
             position: 'bottom-right',
             title: 'Error',
-             message: 'Cannot update product detail',
+            message: 'Cannot update product detail',
             type: 'error',
           });
         });

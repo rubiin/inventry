@@ -16,96 +16,20 @@
 
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-8 order-xl-1">
-          <card shadow type="secondary">
-            <template v-slot:header>
-              <div class="bg-white border-0">
-                <div class="row align-items-center"></div>
-              </div>
-            </template>
-
-            <form>
-              <h6 class="heading-small text-muted mb-4">Sale information</h6>
-              <div class="pl-lg-4">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Price"
-                      placeholder="Price"
-                      :disabled="viewOnly"
-                      input-classes="form-control-alternative"
-                      v-model="model.price"
-                    />
-                  </div>
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Quantity"
-                      :disabled="viewOnly"
-                      placeholder="100"
-                      input-classes="form-control-alternative"
-                      v-model="model.quantity"
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <base-input
-                      alternative=""
-                      label="Vat"
-                      placeholder="Vat"
-                      :disabled="viewOnly"
-                      input-classes="form-control-alternative"
-                      v-model="model.vat"
-                    />
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <base-input
-                        alternative=""
-                        label="Discount"
-                        placeholder="Discount"
-                        :disabled="viewOnly"
-                        input-classes="form-control-alternative"
-                        v-model="model.discount"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-5 w-4/12 ml-1 flex flex-cols">
-                  <label class="form-control-label">Product</label>
-                  <select
-                    v-model="model.product"
-                    class="px-4 py-2 rounded-lg bg-white custom-select"
-                  >
-                    <option v-for="(item, index) in products" :key="index">
-                      {{ item }}
-                    </option>
-                  </select>
-                </div>
-
-                <div class="row flex justify-end">
-                  <base-button
-                    type="primary"
-                    v-if="!viewOnly"
-                    @clicked="mode === 'create' ? addSale() : updateSale()"
-                    >{{ mode === 'create' ? 'Create' : 'Update' }}</base-button
-                  >
-                </div>
-              </div>
-            </form>
-          </card>
+        <div class="col">
+          <projects-table :tableData="sales"></projects-table>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import ProjectsTable from './Tables/AddSale';
 export default {
   name: 'sale-detail',
-  components: {},
+  components: {
+    ProjectsTable,
+  },
   data() {
     return {
       model: {
@@ -116,6 +40,7 @@ export default {
         product: '',
       },
       products: [],
+      sales: [],
       mode: 'view',
       value: 1,
       viewOnly: false,
@@ -242,22 +167,8 @@ export default {
         });
     },
   },
-  computed: {
-    productIds() {
-      return this.products;
-    },
-  },
-  async beforeMount() {
-    this.mode = this.$route.query.mode;
-    await this.getAllProducts();
-
-    if (this.$route.query.id) {
-      await this.getSale(this.$route.query.id);
-    }
-    if (this.mode) {
-      this.viewOnly = this.mode === 'view' ? true : false;
-    }
-  },
+  computed: {},
+  async beforeMount() {},
 };
 </script>
 <style lang="scss">

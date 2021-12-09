@@ -2,6 +2,7 @@ import { argon2d, hash } from 'argon2';
 import { classToPlain } from 'class-transformer';
 import { extname } from 'path';
 
+
 export const hashString = (value: string): Promise<string> =>
   hash(value, {
     type: argon2d,
@@ -53,7 +54,7 @@ export function paginate(
   page: number,
   total: number,
   result: Array<any>,
-  host: string = 'localhost:8000',
+  host = 'localhost:8000',
 ) {
   return {
     total_pages: pages,

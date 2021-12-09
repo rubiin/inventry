@@ -18,7 +18,7 @@ export default {
   updateProductDetail({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios
-        .patch('/product-detail/' + data.id, data.data, data.config)
+        .patch('/product-detail/' + data.id, data.data)
         .then((res) => {
           commit('UPDATE_PRODUCT_DETAILS', res.data);
           return resolve(res);

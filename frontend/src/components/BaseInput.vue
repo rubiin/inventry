@@ -140,7 +140,7 @@ export default {
     },
     onBlur(value) {
       this.focused = false;
-      this.$emit('blur', value);
+      this.$emit('blurred', value);
     },
   },
 };

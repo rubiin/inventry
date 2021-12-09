@@ -3,7 +3,6 @@ import { Product } from './products';
 
 @Entity()
 export class DamageProduct {
-
   @PrimaryKey()
   id!: number;
 
@@ -19,7 +18,10 @@ export class DamageProduct {
   @Property()
   quantity!: number;
 
-  @ManyToOne({ entity: () => Product, onUpdateIntegrity: 'cascade', onDelete: 'cascade' })
+  @ManyToOne({
+    entity: () => Product,
+    onUpdateIntegrity: 'cascade',
+    onDelete: 'cascade',
+  })
   product!: Product;
-
 }
