@@ -28,28 +28,19 @@
       >
         <template v-slot:columns>
           <th>S.N.</th>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Discount</th>
-          <th>Vat</th>
+          <th>Customer Name</th>
+          <th>Voucher Id</th>
+          <th>Total</th>
           <th>Created</th>
           <th></th>
         </template>
 
         <template v-slot:default="row">
           <td>{{ row.item.id }}</td>
-          <td>
-            {{ getId(row.item.product) }}
-          </td>
 
-          <td class="budget">
-            {{ row.item.price }}
-          </td>
-
-          <td>{{ row.item.quantity }}</td>
-          <td>{{ row.item.discount }}</td>
-          <td>{{ row.item.vat }}</td>
+          <td>{{ row.item.clientName }}</td>
+          <td>{{ row.item.id }}</td>
+          <td>{{ row.item.total }}</td>
 
           <td>
             {{ formatDate(row.item.createdAt) }}

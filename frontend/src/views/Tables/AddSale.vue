@@ -10,14 +10,12 @@
             <base-input
               alternative=""
               placeholder="Client name"
-              :disabled="viewOnly"
               input-classes="form-control-alternative"
               v-model="model.clientName"
               class="w-6/12"
             />
             <base-input
               alternative=""
-              :disabled="viewOnly"
               placeholder="Client address"
               input-classes="form-control-alternative"
               v-model="model.clientAddress"
@@ -59,7 +57,6 @@
           <td class="pt-0">
             <el-autocomplete
               v-model="row.item.product"
-              :disabled="viewOnly"
               :fetch-suggestions="getAllProducts"
               placeholder="Please input product id"
               class="autocomplete"
@@ -71,7 +68,6 @@
           <td>
             <base-input
               alternative=""
-              :disabled="viewOnly"
               placeholder="quantity"
               input-classes="form-control-alternative"
               v-model="row.item.quantity"
@@ -84,10 +80,9 @@
           <td>
             <base-input
               alternative=""
-              :disabled="viewOnly"
               placeholder="Per"
               input-classes="form-control-alternative"
-              v-model="row.item.per"
+              v-model="row.item.ratePer"
             />
           </td>
           <td class="flex">
@@ -96,7 +91,6 @@
           <td>
             <base-input
               alternative=""
-              :disabled="viewOnly"
               placeholder="Discount"
               input-classes="form-control-alternative"
               v-model="row.item.discount"
@@ -111,7 +105,11 @@
       </base-table>
 
       <div class="col text-left mb-3 pl-4">
-        <base-button type="primary" icon="ni ni-bag-17" size="sm" @clicked="addEntry"
+        <base-button
+          type="primary"
+          icon="ni ni-bag-17"
+          size="sm"
+          @clicked="addEntry"
           >Add Item</base-button
         >
       </div>
@@ -120,7 +118,11 @@
           <h5 class="font-bold">Total: {{ total }}</h5>
         </div>
         <div>
-          <base-button type="success" icon="ni ni-check-bold" size="lg" @clicked="addVoucher"
+          <base-button
+            type="success"
+            icon="ni ni-check-bold"
+            size="lg"
+            @clicked="addVoucher"
             >Save</base-button
           >
         </div>
@@ -146,15 +148,56 @@ export default {
         clientName: '',
         clientAddress: '',
         total: '',
-        cashReceived: '',
-        cashReturned: '',
+        cashReceived: 0,
+        cashReturned: 0,
       },
       IMAGE_URL: 'http://localhost:8000/',
     };
   },
   methods: {
-    async addVoucher(){
-    
+    async addVoucher() {
+      let loader = this.$loading.show({
+        container: this.$refs.formContainer,
+      });
+
+      // alert(JSON.stringify(this.tableData))
+      const items = this.tableData.map((el) => {
+        el.product = el.id;
+
+        return el
+      });
+
+      const payload = {
+        clientName: this.model.clientName,
+        clientAddress: this.model.clientAddress,
+        total: this.total,
+        cashReceived: this.model.cashReceived,
+        cashReturned: this.model.cashReturned,
+        items,
+      };
+
+      await this.$store
+        .dispatch('sales/createSales', payload)
+        .then((res) => {
+          loader.hide();
+
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Added sale',
+            type: 'success',
+          });
+        })
+        .catch((err) => {
+          loader.hide();
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Error',
+            message: 'Sales cannot be added',
+            type: 'danger',
+          });
+          console.log(err);
+        });
     },
     handleSelect(currentRow) {
       const currentProduct = this.products.find(
@@ -172,19 +215,17 @@ export default {
         currentProduct.price * parseFloat(currentRow.quantity) +
         currentRow.vat -
         parseFloat(currentRow.discount);
+      currentRow.id = currentProduct.id;
     },
     addEntry() {
-      let firstBits = Math.floor(1000 + Math.random() * 9000);
-      let secondBits = Math.floor(1000 + Math.random() * 9000);
-      let fieldId = `S-${firstBits}-${secondBits}`;
       this.tableData.push({
-        id: fieldId,
+        id: '',
         discount: 0,
         vat: '',
         product: '',
         quantity: '',
         price: '',
-        per: '',
+        ratePer: '',
         amount: '',
       });
     },
