@@ -34,8 +34,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     DamagedProductModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -71,13 +71,12 @@ export class SalesService {
 
     const offset = limit * (page - 1);
 
-    let product: Sales[], total: number;
+    let product: any[], total: number;
 
     if (search) {
       [product, total] = await this.salesRepository.findAndCount(
         { id: +search },
         {
-          populate: ['product'],
           limit,
           offset,
           orderBy: { createdAt: QueryOrder.ASC },
@@ -87,7 +86,6 @@ export class SalesService {
       [product, total] = await this.salesRepository.findAndCount(
         {},
         {
-          populate: ['product'],
           limit,
           offset,
           orderBy: { createdAt: QueryOrder.ASC },
@@ -101,7 +99,7 @@ export class SalesService {
   }
 
   async getOne(id: number) {
-    const user = await this.salesRepository.findOne(id, ['product']);
+    const user = await this.salesRepository.findOne(id, ['bills']);
 
     if (!user) throw new NotFoundException('Sales does not exists');
 

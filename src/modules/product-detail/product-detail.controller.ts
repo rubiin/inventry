@@ -25,8 +25,7 @@ export class ProductDetailController {
 
   @Get()
   async findAll(@Query() listQuery: ListQueryBaseDto) {
-
-    console.log(listQuery)
+    console.log(listQuery);
     const { pages, total, product } = await this.productDetailService.findAll(
       listQuery,
     );
@@ -48,8 +47,7 @@ export class ProductDetailController {
     @Param('id') id: string,
     @Body() updateProductDetailDto: UpdateProductDetailDto,
   ) {
-
-    console.log(updateProductDetailDto)
+    console.log(updateProductDetailDto);
     const data = await this.productDetailService.update(
       +id,
       updateProductDetailDto,

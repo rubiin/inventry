@@ -1,8 +1,10 @@
 import {
   Collection,
   Entity,
+  LoadStrategy,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   Property,
 } from '@mikro-orm/core';
@@ -26,4 +28,11 @@ export class Sales extends BaseEntity {
 
   @Property()
   cashReturned: number;
+
+  @OneToMany({
+    entity: () => Bill,
+    mappedBy: 'sale',
+    nullable: true,
+  })
+  bills = new Collection<Bill>(this);
 }

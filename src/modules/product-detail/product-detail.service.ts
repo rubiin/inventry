@@ -41,7 +41,7 @@ export class ProductDetailService {
   async findAll(listQuery: ListQueryBaseDto) {
     const { limit, search, page } = listQuery;
 
-    console.log('here',listQuery)
+    console.log('here', listQuery);
 
     const offset = limit * (page - 1);
 
@@ -49,10 +49,11 @@ export class ProductDetailService {
 
     if (search) {
       [product, total] = await this.productDetailRepository.findAndCount(
-        { name: {
-          $ilike: `${search}%`
-        } 
-      },
+        {
+          name: {
+            $ilike: `${search}%`,
+          },
+        },
         {
           populate: ['product'],
           limit,

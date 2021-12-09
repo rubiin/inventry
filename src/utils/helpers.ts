@@ -2,7 +2,6 @@ import { argon2d, hash } from 'argon2';
 import { classToPlain } from 'class-transformer';
 import { extname } from 'path';
 
-
 export const hashString = (value: string): Promise<string> =>
   hash(value, {
     type: argon2d,
