@@ -22,6 +22,9 @@ export class Bill extends BaseEntity {
   vat: number;
 
   @Property()
+  discount: number;
+
+  @Property()
   amount: number;
 
   @ManyToOne({

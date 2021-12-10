@@ -48,6 +48,7 @@ export class SalesService {
         bill.quantity = item.quantity;
         bill.ratePer = item.ratePer;
         bill.vat = item.vat;
+        bill.discount = item.discount;
         bill.amount = item.amount;
         bill.sale = sale;
         return bill;
@@ -99,7 +100,7 @@ export class SalesService {
   }
 
   async getOne(id: number) {
-    const user = await this.salesRepository.findOne(id, ['bills']);
+    const user = await this.salesRepository.findOne(id, ['bills','bills.productDetail']);
 
     if (!user) throw new NotFoundException('Sales does not exists');
 

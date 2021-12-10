@@ -27,6 +27,8 @@ import DamageProductDetail from '../views/DamageProductDetail.vue';
 import Product from '../views/Product.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 
+import SaleVoucherView from '../views/SaleVoucherView.vue';
+
 const routes = [
   {
     path: '/',
@@ -93,6 +95,14 @@ const routes = [
         path: '/sale-detail',
         name: 'sale-detail',
         components: { default: SaleDetail },
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/voucher/:id',
+        name: 'voucher',
+        components: { default: SaleVoucherView },
         meta: {
           requiresAuth: true,
         },

@@ -78,8 +78,6 @@
             addText="Add Sales"
             :tableData="sales"
             @add="addSale"
-            @edit="editSale($event)"
-            @remove="handlDelete($event)"
             @view="viewSale($event)"
           ></projects-table>
         </div>
@@ -142,9 +140,8 @@ export default {
     },
     viewSale(id) {
       this.$router.push({
-        name: 'sale-detail',
-        query: {
-          mode: 'view',
+        name: 'voucher',
+        params: {
           id,
         },
       });

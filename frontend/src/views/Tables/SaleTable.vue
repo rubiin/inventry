@@ -62,12 +62,6 @@
               <a class="dropdown-item" href="#" @click="viewData(row.item.id)"
                 >View</a
               >
-              <a class="dropdown-item" href="#" @click="editData(row.item.id)"
-                >Edit</a
-              >
-              <a class="dropdown-item" href="#" @click="removeData(row.item.id)"
-                >Delete</a
-              >
             </base-dropdown>
           </td>
         </template>

@@ -164,7 +164,7 @@ export default {
       const items = this.tableData.map((el) => {
         el.product = el.id;
 
-        return el
+        return el;
       });
 
       const payload = {
@@ -187,6 +187,8 @@ export default {
             message: 'Added sale',
             type: 'success',
           });
+
+          this.$router.push('/sales');
         })
         .catch((err) => {
           loader.hide();

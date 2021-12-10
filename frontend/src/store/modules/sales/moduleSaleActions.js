@@ -15,7 +15,7 @@ export default {
     });
   },
 
-  getSales({ commit }, params) {
+  getSale({ commit }, params) {
     return new Promise((resolve, reject) => {
       axios
         .get('/sales/' + params)

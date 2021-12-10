@@ -25,7 +25,6 @@ export class SalesController {
   @Post()
   async create(@Body() createSaleDto: CreateSaleDto) {
 
-    console.log(createSaleDto);
     const data = await this.salesService.create(createSaleDto);
 
     return { message: 'Sale has been created!', data };
