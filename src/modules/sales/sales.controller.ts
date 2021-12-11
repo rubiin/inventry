@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { SalesService } from './sales.service';
 import { CreateSaleDto } from './dto/create-sale.dto';
@@ -17,14 +18,15 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { imageFileFilter, editFileName, paginate } from 'src/utils/helpers';
 import { ListQueryBaseDto } from 'src/common/dto';
+import { JwtAuthGuard } from 'src/common/jwt.guard';
 
 @Controller('sales')
+@UseGuards(JwtAuthGuard)
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post()
   async create(@Body() createSaleDto: CreateSaleDto) {
-
     const data = await this.salesService.create(createSaleDto);
 
     return { message: 'Sale has been created!', data };

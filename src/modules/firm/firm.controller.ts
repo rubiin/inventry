@@ -7,14 +7,17 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { FirmService } from './firm.service';
 import { CreateFirmDto } from './dto/create-firm.dto';
 import { UpdateFirmDto } from './dto/update-firm.dto';
 import { ListQueryBaseDto } from 'src/common/dto';
 import { paginate } from 'src/utils/helpers';
+import { JwtAuthGuard } from 'src/common/jwt.guard';
 
 @Controller('firm')
+@UseGuards(JwtAuthGuard)
 export class FirmController {
   constructor(private readonly firmService: FirmService) {}
 

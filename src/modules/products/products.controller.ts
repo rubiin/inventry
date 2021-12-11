@@ -22,10 +22,10 @@ import { ListQueryBaseDto } from 'src/common/dto';
 import { JwtAuthGuard } from 'src/common/jwt.guard';
 
 @Controller('product')
+@UseGuards(JwtAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(
     FileInterceptor('image', {

@@ -180,7 +180,6 @@ router.beforeEach((to, from, next) => {
     const user = JSON.parse(localStorage.getItem('user'));
     // alert(user);
     if (user) {
-      alert('logged');
       next();
     }
     next('/login');

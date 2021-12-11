@@ -7,13 +7,16 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ListQueryBaseDto } from 'src/common/dto';
+import { JwtAuthGuard } from 'src/common/jwt.guard';
 import { paginate } from 'src/utils/helpers';
 import { DamagedProductService } from './damaged-product.service';
 import { CreateDamagedProductDto } from './dto/create-damaged-product.dto';
 
 @Controller('damaged-product')
+@UseGuards(JwtAuthGuard)
 export class DamagedProductController {
   constructor(private readonly damagedProductService: DamagedProductService) {}
 

@@ -13,9 +13,9 @@ export default {
 
   COMMIT_LOGGED_IN(state, payload) {
     localStorage.setItem('user', JSON.stringify(payload));
+    localStorage.setItem('token', JSON.stringify(payload.accessToken));
 
-    axios.defaults.headers.common['Authorization'] =
-      'Bearer ' + payload.accessToken;
+
     state.loggedInUser = payload;
   },
   UPDATE_USER(state, payload) {
