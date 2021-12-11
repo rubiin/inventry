@@ -1,3 +1,5 @@
+import axios from '../../../axios/axios';
+
 export default {
   SET_USERS(state, payload) {
     state.users = payload;
@@ -11,6 +13,9 @@ export default {
 
   COMMIT_LOGGED_IN(state, payload) {
     localStorage.setItem('user', JSON.stringify(payload));
+
+    axios.defaults.headers.common['Authorization'] =
+      'Bearer ' + payload.accessToken;
     state.loggedInUser = payload;
   },
   UPDATE_USER(state, payload) {

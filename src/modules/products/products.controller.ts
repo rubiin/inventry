@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -18,11 +19,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { imageFileFilter, editFileName, paginate } from 'src/utils/helpers';
 import { ListQueryBaseDto } from 'src/common/dto';
+import { JwtAuthGuard } from 'src/common/jwt.guard';
 
 @Controller('product')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(
     FileInterceptor('image', {
