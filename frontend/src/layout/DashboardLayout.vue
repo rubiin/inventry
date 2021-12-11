@@ -8,14 +8,6 @@
       <template v-slot:links>
         <sidebar-item
           :link="{
-            name: 'Bills',
-            icon: 'ni ni-money-coins text-green',
-            path: '/bills',
-          }"
-        />
-
-        <sidebar-item
-          :link="{
             name: 'Firms',
             icon: 'el-icon-s-shop text-lg text-blue',
             path: '/firm',
@@ -46,7 +38,7 @@
         <sidebar-item
           :link="{
             name: 'Expenses',
-            icon: 'el-icon-s-finance text-grey text-lg',
+            icon: 'el-icon-s-finance text-pink text-lg',
             path: '/expense',
           }"
         />
