@@ -10,6 +10,7 @@ export default {
   },
 
   COMMIT_LOGGED_IN(state, payload) {
+    localStorage.setItem('user', JSON.stringify(payload));
     state.loggedInUser = payload;
   },
   UPDATE_USER(state, payload) {

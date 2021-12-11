@@ -36,10 +36,10 @@
             <span>Settings</span>
           </router-link>
           <div class="dropdown-divider"></div>
-          <router-link to="/profile" class="dropdown-item">
+          <a class="dropdown-item" @click="logOut">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
-          </router-link>
+          </a>
         </base-dropdown>
       </li>
     </ul>
@@ -63,6 +63,10 @@ export default {
     },
     toggleMenu() {
       this.showMenu = !this.showMenu;
+    },
+    logOut() {
+      localStorage.removeItem('user');
+      this.$router.push('/login');
     },
   },
 };

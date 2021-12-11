@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { auth } from '../auth/auth';
+import store from '../store/store';
 
 import DashboardLayout from '@/layout/DashboardLayout';
 import AuthLayout from '@/layout/AuthLayout';
@@ -16,7 +16,6 @@ import Firm from '../views/Firm.vue';
 import FirmDetail from '../views/FirmDetail.vue';
 
 import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
 
 import Expense from '../views/Expense.vue';
 import ExpenseDetail from '../views/ExpenseDetail.vue';
@@ -167,11 +166,6 @@ const routes = [
         name: 'login',
         components: { default: Login },
       },
-      {
-        path: '/register',
-        name: 'register',
-        components: { default: Register },
-      },
     ],
   },
 ];
@@ -182,8 +176,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // alert('going to '+JSON.stringify(to));
-  next();
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    // alert(user);
+    if (user) {
+      alert('logged');
+      next();
+    }
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;

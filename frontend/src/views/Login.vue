@@ -35,16 +35,6 @@
           </form>
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <a href="#" class="text-light"><small>Forgot password?</small></a>
-        </div>
-        <div class="col-6 text-right">
-          <router-link to="/register" class="text-light"
-            ><small>Create new account</small></router-link
-          >
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -54,8 +44,8 @@ export default {
   data() {
     return {
       model: {
-        email: '',
-        password: '',
+        email: 'admin@gmail.com',
+        password: 'Test@123',
       },
     };
   },
@@ -68,12 +58,24 @@ export default {
         .dispatch('user/login', this.model)
         .then((res) => {
           loader.hide();
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Logged in',
+            type: 'success',
+          });
           this.$router.push({ name: 'dashboard' });
-          console.log(res.data);
         })
         .catch((err) => {
           loader.hide();
           console.log(err);
+
+          this.$notify({
+            position: 'bottom-right',
+            title: 'Info',
+            message: 'Cannot login, check your credentials',
+            type: 'danger',
+          });
         });
     },
   },
