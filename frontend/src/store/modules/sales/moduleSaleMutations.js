@@ -2,6 +2,9 @@ export default {
   SET_SALES(state, payload) {
     state.sales = payload;
   },
+  SET_STATS(state, payload) {
+    state.stats = payload;
+  },
   DELETE_SALES(state, payload) {
     state.sales = state.sales.filter((item) => item.id !== payload);
   },

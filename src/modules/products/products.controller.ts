@@ -50,6 +50,7 @@ export class ProductsController {
 
   @Get()
   async findAll(@Query() listQuery: ListQueryBaseDto) {
+
     const { pages, total, product } = await this.productsService.findAll(
       listQuery,
     );
@@ -59,9 +60,21 @@ export class ProductsController {
     };
   }
 
+  @Get('stats')
+  async getSalesAndProductCount() {
+
+    const data = await this.productsService.getSalesAndProductCount(
+     
+    );
+    return {
+      message: 'Products',
+      data,
+    };
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const data = await this.productsService.findOne(+id);
+        const data = await this.productsService.findOne(+id);
 
     return { message: 'Product details', data };
   }

@@ -28,6 +28,20 @@ export default {
     });
   },
 
+  getStats({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('/product/stats')
+        .then((res) => {
+          commit('SET_STATS', res.data.data);
+          return resolve(res);
+        })
+        .catch((err) => {
+          return reject(err.response);
+        });
+    });
+  },
+
   updateSales({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios

@@ -1,4 +1,4 @@
-import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
+import { EntityManager, EntityRepository, MikroORM, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
@@ -10,6 +10,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ListQueryBaseDto } from 'src/common/dto';
 import { Product } from 'src/entities/products';
+import { Sales } from 'src/entities/sales';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -18,7 +19,20 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: EntityRepository<Product>,
+    @InjectRepository(Sales)
+    private readonly salesRepository: EntityRepository<Sales>,
+    private readonly orm: MikroORM,
+    private readonly em: EntityManager,
   ) {}
+
+  async getSalesAndProductCount() {
+    const [saleCount, productCount] = await Promise.all([this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM sales`), this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM product`)]);
+
+    return {
+      saleCount: saleCount[0].count,
+      productCount: productCount[0].count,
+    };
+  }
 
   async create(dto: CreateProductDto, image: string) {
     const productExist = await this.productRepository.findOne({

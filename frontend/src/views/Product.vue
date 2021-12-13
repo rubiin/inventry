@@ -1,41 +1,7 @@
 <template>
   <div ref="formContainer">
-    <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
-      <!-- Card stats -->
-      <div class="row">
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Total traffic"
-            type="gradient-orange"
-            sub-title="2,356"
-            icon="ni ni-chart-pie-35"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-                ><i class="fa fa-arrow-up"></i> 12.18%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Sales"
-            type="gradient-green"
-            sub-title="924"
-            icon="ni ni-money-coins"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-danger mr-2"
-                ><i class="fa fa-arrow-down"></i> 5.72%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-      </div>
+    <base-header type="gradient-success" class="pb-8 pt-5 pt-md-8">
+      <stats />
     </base-header>
 
     <div class="container-fluid mt--7">
@@ -70,11 +36,13 @@
 import ProjectsTable from './Tables/ProductDetailTable';
 import { mapState } from 'vuex';
 import Swal from 'sweetalert2';
+import Stats from '@/components/Stats';
 
 export default {
   name: 'tables',
   components: {
     ProjectsTable,
+    Stats,
   },
   data() {
     return {
