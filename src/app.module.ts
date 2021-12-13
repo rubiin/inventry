@@ -13,6 +13,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ProductDetailModule } from './modules/product-detail/product-detail.module';
 import { DamagedProductModule } from './modules/damaged-product/damaged-product.module';
+import { FinancialModule } from './modules/financial/financial.module';
 import { LoggingInterceptor } from './common/logger.interceptor';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
@@ -32,6 +33,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     AuthModule,
     ProductDetailModule,
     DamagedProductModule,
+    FinancialModule,
   ],
   controllers: [AppController],
   providers: [AppService],

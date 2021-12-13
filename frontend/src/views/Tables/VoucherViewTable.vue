@@ -4,7 +4,7 @@
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-      <div class="row flex justify-between px-4">
+      <div class="row flex justify-between px-2">
         <div>
           <p class="text-sm font-semibold">
             Customer name: {{ tableData.clientName }}
@@ -23,14 +23,8 @@
     </div>
 
     <div class="table-responsive">
-      <base-table
-        class="table align-items-center table-flush"
-        :class="type === 'dark' ? 'table-dark' : ''"
-        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-        tbody-classes="list"
-        :data="tableData.bills"
-      >
-        <template v-slot:columns>
+      <table class="myTable">
+        <tr>
           <th>S.N.</th>
           <th>Product</th>
           <th>Rate</th>
@@ -38,25 +32,20 @@
           <th>Vat</th>
           <th>Discount</th>
           <th>Amount</th>
-          <th></th>
-        </template>
+        </tr>
 
-        <template v-slot:default="row">
-          <td>{{ row.item.id }}</td>
+        <tr v-for="(item, index) in tableData.bills" :key="index">
+          <td>{{ item.id }}</td>
 
-          <td>{{ row.item.productDetail.name }}</td>
-          <td>{{ row.item.productDetail.price }}</td>
-          <td>{{ row.item.ratePer }}</td>
-          <td>{{ row.item.vat }}</td>
-          <td>{{ row.item.discount }}</td>
-          <td>{{ row.item.amount }}</td>
-
-          <!-- <td>{{ row.item.clientName }}</td>
-          <td>{{ row.item.id }}</td>
-          <td>{{ row.item.total }}</td> -->
-        </template>
-      </base-table>
-      <div class="flex justify-end w-11/12 mt-5">
+          <td>{{ item.productDetail.name }}</td>
+          <td>{{ item.productDetail.price }}</td>
+          <td>{{ item.ratePer }}</td>
+          <td>{{ item.vat }}</td>
+          <td>{{ item.discount }}</td>
+          <td>{{ item.amount }}</td>
+        </tr>
+      </table>
+      <div class="flex justify-end w-11/12 my-5">
         <ul class="vouceher-details">
           <li class="text-base font-bold">Total: {{ tableData.total }}</li>
           <li class="text-base font-bold">
@@ -112,4 +101,18 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+table.myTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 97%;
+  margin: 0 auto;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
