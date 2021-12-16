@@ -12,10 +12,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { Bill } from 'src/entities/bills';
-import { Product } from 'src/entities/products';
-import { Sales } from 'src/entities/sales';
+import { ListQueryBaseDto } from '../../common/dto';
+import { Bill } from '../../entities/bills';
+import { Product } from '../../entities/products';
+import { Sales } from '../../entities/sales';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 
@@ -100,7 +100,10 @@ export class SalesService {
   }
 
   async getOne(id: number) {
-    const user = await this.salesRepository.findOne(id, ['bills','bills.productDetail']);
+    const user = await this.salesRepository.findOne(id, [
+      'bills',
+      'bills.productDetail',
+    ]);
 
     if (!user) throw new NotFoundException('Sales does not exists');
 

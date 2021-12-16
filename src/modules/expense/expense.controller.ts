@@ -12,9 +12,9 @@ import {
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { paginate } from 'src/utils/helpers';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { paginate } from '../../utils/helpers';
+import { ListQueryBaseDto } from '../../common/dto';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 
 @Controller('expense')
 @UseGuards(JwtAuthGuard)

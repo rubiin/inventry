@@ -11,10 +11,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { DamageProduct } from 'src/entities/damagedProduct';
-import { ProductDetail } from 'src/entities/productDetails';
-import { Product } from 'src/entities/products';
+import { ListQueryBaseDto } from '../../common/dto';
+import { DamageProduct } from '../../entities/damagedProduct';
+import { ProductDetail } from '../../entities/productDetails';
+import { Product } from '../../entities/products';
 import { CreateDamagedProductDto } from './dto/create-damaged-product.dto';
 
 @Injectable()

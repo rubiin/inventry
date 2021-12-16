@@ -5,8 +5,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { Firm } from 'src/entities/firm';
+import { ListQueryBaseDto } from '../../common/dto';
+import { Firm } from '../../entities/firm';
 import { CreateFirmDto } from './dto/create-firm.dto';
 import { UpdateFirmDto } from './dto/update-firm.dto';
 

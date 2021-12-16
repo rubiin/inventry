@@ -8,11 +8,10 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 import { BillsService } from './bills.service';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
-
 
 @UseGuards(JwtAuthGuard)
 @Controller('bills')

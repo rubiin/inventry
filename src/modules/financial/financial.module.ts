@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { FinancialService } from './financial.service';
 import { FinancialController } from './financial.controller';
-import { Expenses } from 'src/entities/expenses';
+import { Expenses } from '../../entities/expenses';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 
 @Module({

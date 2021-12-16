@@ -9,9 +9,9 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
-import { paginate } from 'src/utils/helpers';
+import { ListQueryBaseDto } from '../../common/dto';
+import { JwtAuthGuard } from '../../common/jwt.guard';
+import { paginate } from '../../utils/helpers';
 import { DamagedProductService } from './damaged-product.service';
 import { CreateDamagedProductDto } from './dto/create-damaged-product.dto';
 

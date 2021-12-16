@@ -1,4 +1,10 @@
-import { EntityManager, EntityRepository, MikroORM, QueryOrder, wrap } from '@mikro-orm/core';
+import {
+  EntityManager,
+  EntityRepository,
+  MikroORM,
+  QueryOrder,
+  wrap,
+} from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   BadRequestException,
@@ -8,9 +14,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { Product } from 'src/entities/products';
-import { Sales } from 'src/entities/sales';
+import { ListQueryBaseDto } from '../../common/dto';
+import { Product } from '../../entities/products';
+import { Sales } from '../../entities/sales';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -26,7 +32,10 @@ export class ProductsService {
   ) {}
 
   async getSalesAndProductCount() {
-    const [saleCount, productCount] = await Promise.all([this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM sales`), this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM product`)]);
+    const [saleCount, productCount] = await Promise.all([
+      this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM sales`),
+      this.orm.em.getConnection().execute(`SELECT COUNT(*) FROM product`),
+    ]);
 
     return {
       saleCount: saleCount[0].count,

@@ -1,4 +1,4 @@
-import { Expenses } from 'src/entities/expenses';
+import { Expenses } from '../../entities/expenses';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
@@ -8,7 +8,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
+import { ListQueryBaseDto } from '../../common/dto';
 
 @Injectable()
 export class ExpenseService {

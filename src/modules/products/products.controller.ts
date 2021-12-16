@@ -17,9 +17,9 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { imageFileFilter, editFileName, paginate } from 'src/utils/helpers';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { imageFileFilter, editFileName, paginate } from '../../utils/helpers';
+import { ListQueryBaseDto } from '../../common/dto';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 
 @Controller('product')
 @UseGuards(JwtAuthGuard)
@@ -50,7 +50,6 @@ export class ProductsController {
 
   @Get()
   async findAll(@Query() listQuery: ListQueryBaseDto) {
-
     const { pages, total, product } = await this.productsService.findAll(
       listQuery,
     );
@@ -62,10 +61,7 @@ export class ProductsController {
 
   @Get('stats')
   async getSalesAndProductCount() {
-
-    const data = await this.productsService.getSalesAndProductCount(
-     
-    );
+    const data = await this.productsService.getSalesAndProductCount();
     return {
       message: 'Products',
       data,
@@ -74,7 +70,7 @@ export class ProductsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-        const data = await this.productsService.findOne(+id);
+    const data = await this.productsService.findOne(+id);
 
     return { message: 'Product details', data };
   }

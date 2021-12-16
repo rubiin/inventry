@@ -12,9 +12,9 @@ import {
 import { FirmService } from './firm.service';
 import { CreateFirmDto } from './dto/create-firm.dto';
 import { UpdateFirmDto } from './dto/update-firm.dto';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { paginate } from 'src/utils/helpers';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { ListQueryBaseDto } from '../../common/dto';
+import { paginate } from '../../utils/helpers';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 
 @Controller('firm')
 @UseGuards(JwtAuthGuard)

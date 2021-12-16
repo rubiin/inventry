@@ -12,9 +12,9 @@ import {
 import { ProductDetailService } from './product-detail.service';
 import { CreateProductDetailDto } from './dto/create-product-detail.dto';
 import { UpdateProductDetailDto } from './dto/update-product-detail.dto';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { paginate } from 'src/utils/helpers';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { ListQueryBaseDto } from '../../common/dto';
+import { paginate } from '../../utils/helpers';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 
 @Controller('product-detail')
 @UseGuards(JwtAuthGuard)

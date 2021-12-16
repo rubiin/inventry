@@ -11,8 +11,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { ProductDetail } from 'src/entities/productDetails';
+import { ListQueryBaseDto } from '../../common/dto';
+import { ProductDetail } from '../../entities/productDetails';
 import { CreateProductDetailDto } from './dto/create-product-detail.dto';
 import { UpdateProductDetailDto } from './dto/update-product-detail.dto';
 

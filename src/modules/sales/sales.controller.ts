@@ -16,9 +16,9 @@ import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { imageFileFilter, editFileName, paginate } from 'src/utils/helpers';
-import { ListQueryBaseDto } from 'src/common/dto';
-import { JwtAuthGuard } from 'src/common/jwt.guard';
+import { imageFileFilter, editFileName, paginate } from '../../utils/helpers';
+import { ListQueryBaseDto } from '../../common/dto';
+import { JwtAuthGuard } from '../../common/jwt.guard';
 
 @Controller('sales')
 @UseGuards(JwtAuthGuard)

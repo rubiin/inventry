@@ -1,4 +1,4 @@
-import { Bill } from 'src/entities/bills';
+import { Bill } from '../../entities/bills';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
