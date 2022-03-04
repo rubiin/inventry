@@ -38,9 +38,9 @@
         <template v-slot:default="row">
           <td>{{ row.item.id }}</td>
           <th scope="row">
-              <div class="media-body">
-                <span class="name mb-0 text-sm">{{ row.item.name }}</span>
-              </div>
+            <div class="media-body">
+              <span class="name mb-0 text-sm">{{ row.item.name }}</span>
+            </div>
           </th>
 
           <td class="budget">

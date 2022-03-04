@@ -48,8 +48,6 @@
             </div>
           </card>
         </div>
-
-  
       </div>
       <!-- End charts-->
 

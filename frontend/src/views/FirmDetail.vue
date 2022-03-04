@@ -125,6 +125,19 @@ export default {
   },
   methods: {
     async addFirm() {
+
+      if (this.model.phone.length < 10) {
+        return alert('Phone number should be 10 digits');
+
+      }
+
+      if (this.model.email !== '') {
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!regex.test(this.model.email)) {
+          return alert('You have entered an invalid email address!');
+        }
+      }
+
       let loader = this.$loading.show({
         container: this.$refs.formContainer,
       });

@@ -40,8 +40,8 @@
 
           <th scope="row">
             <div class="media">
-                <span class="name mb-0 text-sm">{{ row.item.name }}</span>
-              </div>
+              <span class="name mb-0 text-sm">{{ row.item.name }}</span>
+            </div>
           </th>
 
           <td>{{ row.item.quantity }}</td>
