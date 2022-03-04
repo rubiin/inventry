@@ -160,7 +160,13 @@ export default {
         container: this.$refs.formContainer,
       });
 
-      // alert(JSON.stringify(this.tableData))
+      if (this.model.clientName === '') {
+           return alert('Client name is required');
+      }
+
+      if (this.model.clientAddress === '') {
+        return alert('Client address is required');
+      }
       const items = this.tableData.map((el) => {
         el.product = el.id;
 
