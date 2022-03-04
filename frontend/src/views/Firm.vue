@@ -155,6 +155,8 @@ export default {
     },
   },
   async mounted() {
+    await this.$store
+        .dispatch('sales/getStats')
     await this.getAllFirm();
   },
   watch: {
