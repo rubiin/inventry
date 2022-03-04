@@ -93,6 +93,7 @@ export default {
       model: {
         quantity: '',
         product: '',
+        name: ''
       },
       mode: 'view',
       value: '',
@@ -102,6 +103,8 @@ export default {
   methods: {
     handleSelect(item) {
       this.model.product = item.value;
+      this.model.name = item.name;
+      
     },
     async getAllProducts(query, cb) {
       const params = `?page=1&limit=10&search=${query}`;
@@ -111,7 +114,7 @@ export default {
           this.loading = false;
 
           this.stocks = res.data.items.map((item) => {
-            return { value: item.id, link: item.id };
+            return { value: item.id, link: item.id , name: item.name };
           });
           return cb(this.stocks);
         })
@@ -138,7 +141,7 @@ export default {
           this.$notify({
             position: 'bottom-right',
             title: 'Info',
-            message: 'Added sale',
+            message: 'Added damage',
             type: 'success',
           });
 
@@ -151,7 +154,7 @@ export default {
           this.$notify({
             position: 'bottom-right',
             title: 'Error',
-            message: 'Cannot create sale',
+            message: 'Cannot create damage',
             type: 'error',
           });
         });

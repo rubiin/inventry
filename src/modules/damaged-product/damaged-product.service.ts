@@ -29,11 +29,6 @@ export class DamagedProductService {
   ) {}
 
   async create(dto: CreateDamagedProductDto) {
-    const productExist = await this.damagedProductRepository.findOne({
-      name: dto.name,
-    });
-    if (productExist)
-      throw new BadRequestException('Product with name already exists');
     const product = await this.getOneProduct(dto.product);
 
     const newDetail = this.damagedProductRepository.create(dto);
