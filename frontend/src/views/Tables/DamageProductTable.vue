@@ -30,7 +30,7 @@
           <th>S.N.</th>
           <th>Product</th>
           <th>Quantity</th>
-          <th>Quantity</th>
+          <th>Price</th>
           <th>Created</th>
           <th></th>
         </template>
@@ -39,17 +39,9 @@
           <td>{{ row.item.id }}</td>
 
           <th scope="row">
-            <div class="media align-items-center">
-              <el-avatar
-                :size="60"
-                :src="IMAGE_URL + row.item.image"
-                class="mr-2"
-              >
-              </el-avatar>
-              <div class="media-body">
+            <div class="media">
                 <span class="name mb-0 text-sm">{{ row.item.name }}</span>
               </div>
-            </div>
           </th>
 
           <td>{{ row.item.quantity }}</td>
