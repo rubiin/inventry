@@ -50,6 +50,8 @@ export class ProductsService {
     if (productExist)
       throw new BadRequestException('Product with name already exists');
 
+    console.log(dto, image);
+
     const newProduct = this.productRepository.create({ ...dto, image });
     await this.productRepository.persistAndFlush(newProduct);
 

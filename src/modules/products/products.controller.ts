@@ -42,7 +42,7 @@ export class ProductsController {
   ) {
     const data = await this.productsService.create(
       createProductDto,
-      image.filename,
+      "https://us02web.zoom.us/j/9420070542",
     );
 
     return { message: 'Product has been created!', data };

@@ -6,7 +6,7 @@ const config: Options = {
   host: 'satao.db.elephantsql.com',
   port: 5432,
   user: 'biizqzfz',
-  password: 'XxyGEa7k84alVRFKHHaq5IgYBcl6e6Hy',
+  password: 'QAIrUp3nLcrc43imXAhVNKWw3YB0poed',
   dbName: 'biizqzfz',
   migrations: {
     path: 'src/migrations/',
