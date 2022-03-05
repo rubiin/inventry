@@ -34,8 +34,6 @@ export class Bill extends BaseEntity {
   })
   productDetail!: ProductDetail;
 
-  
-
   @ManyToOne({
     entity: () => Sales,
     onUpdateIntegrity: 'cascade',
