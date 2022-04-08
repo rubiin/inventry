@@ -161,8 +161,7 @@ export default {
     },
   },
   async mounted() {
-    await this.$store
-        .dispatch('sales/getStats')
+    await this.$store.dispatch('sales/getStats');
     await this.getAllSales();
   },
   watch: {

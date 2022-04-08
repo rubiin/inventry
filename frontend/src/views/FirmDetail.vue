@@ -125,10 +125,8 @@ export default {
   },
   methods: {
     async addFirm() {
-
       if (this.model.phone.length < 10) {
         return alert('Phone number should be 10 digits');
-
       }
 
       if (this.model.email !== '') {

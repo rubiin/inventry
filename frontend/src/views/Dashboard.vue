@@ -3,7 +3,6 @@
     <base-header type="gradient-success" class="pb-8 pt-5 pt-md-8">
       <stats />
     </base-header>
-
   </div>
 </template>
 <script>

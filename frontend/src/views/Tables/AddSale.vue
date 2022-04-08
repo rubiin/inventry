@@ -161,7 +161,7 @@ export default {
       });
 
       if (this.model.clientName === '') {
-           return alert('Client name is required');
+        return alert('Client name is required');
       }
 
       if (this.model.clientAddress === '') {

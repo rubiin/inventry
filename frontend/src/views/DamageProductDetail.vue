@@ -93,7 +93,7 @@ export default {
       model: {
         quantity: '',
         product: '',
-        name: ''
+        name: '',
       },
       mode: 'view',
       value: '',
@@ -104,7 +104,6 @@ export default {
     handleSelect(item) {
       this.model.product = item.value;
       this.model.name = item.name;
-      
     },
     async getAllProducts(query, cb) {
       const params = `?page=1&limit=10&search=${query}`;
@@ -114,7 +113,7 @@ export default {
           this.loading = false;
 
           this.stocks = res.data.items.map((item) => {
-            return { value: item.id, link: item.id , name: item.name };
+            return { value: item.id, link: item.id, name: item.name };
           });
           return cb(this.stocks);
         })
